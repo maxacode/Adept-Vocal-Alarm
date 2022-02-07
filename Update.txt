@@ -1,2 +1,2 @@
-1.0.0
-https://github.com/maxacode/Adept-Vocal-Alarm/edit/main/Update_New_v_1.1.0.zip
+1.1
+https://github.com/maxacode/Adept-Vocal-Alarm/edit/main/Update_New_v_1.1.zip
