@@ -20,7 +20,7 @@ import requests
 #Refrences:
 #https://docs.python-requests.org/en/latest/user/quickstart/#passing-parameters-in-urls
 
-app_version = "1.0"
+app_version = "1.1"
  
 url = "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Update.txt"
 r = requests.get(url, allow_redirects=True)
