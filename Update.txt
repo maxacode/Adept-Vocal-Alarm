@@ -1,2 +1,2 @@
-app_version = "1.0.0"
-update_link = 
+app_version = 1.0.0
+update_link = https://github.com/maxacode/Adept-Vocal-Alarm/edit/main/Update_New.zip
