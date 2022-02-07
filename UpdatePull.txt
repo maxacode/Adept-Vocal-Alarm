@@ -1,2 +1,0 @@
-app_version = "1.0.0"
-update_link = 
