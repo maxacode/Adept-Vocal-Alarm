@@ -100,7 +100,7 @@ def readFile():
             continue
 
 ###########################################################################
-# Timer Section
+# Timer Section!!!!!!!!
 
 def alarmTimer( alarm, msg):
     basicLog("alarmTimer","Starting AlarmTimer Function")

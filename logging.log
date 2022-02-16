@@ -894,3 +894,14 @@
 02/10/2022 04:30:52 PM | DEBUG |  part-0 written to <_io.BufferedWriter name='Audio/4:31 DoubleWide.mp3'>
 02/10/2022 04:30:52 PM | DEBUG |  Saved to Audio/4:31 DoubleWide.mp3
 02/10/2022 04:30:54 PM | INFO |  Function: playAudio | Message: Downloaded and Played Audio: Audio/4:31 DoubleWide.mp3 
+02/13/2022 02:48:20 PM | INFO |  @@@@@@@@@@@@@@ Main Program start @@@@@@@@@@@@@@@
+02/13/2022 02:48:20 PM | INFO |  Function: Main | Message: Current Version: 1.0
+02/13/2022 02:48:20 PM | INFO |  Function: Main | Message: OS: macOS-12.1-arm64-arm-64bit | Version: Darwin Kernel Version 21.2.0: Sun Nov 28 20:28:41 PST 2021; root:xnu-8019.61.5~1/RELEASE_ARM64_T6000
+02/13/2022 02:48:20 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+02/13/2022 02:48:20 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/Update.txt HTTP/1.1" 200 100
+02/13/2022 02:48:20 PM | INFO |  Function: checkForUpdate | Message: Update: n
+02/13/2022 02:48:20 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+02/13/2022 02:48:20 PM | INFO |  Function: readFile | Message: Starting Alarm: ('4:31', 'DoubleWide')
+02/13/2022 02:48:20 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+02/13/2022 02:48:20 PM | INFO |  Function: alarmTimer | Message: Alarm in: Seconds: 6100 | Minutes: 102 | Hours: 2 for alarm: 4:31
+02/13/2022 02:48:20 PM | INFO |  Function: alarmTimer | Message: Time left for alarm is 1:41:40

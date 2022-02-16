@@ -1,27 +1,31 @@
-#!/usr/bin/python3
 
-import _thread
-import time
 
-# Define a function for the thread
-def print_time( threadName, delay):
-   count = 0
-   while count < 5:
-      time.sleep(delay)
-      print(threadName, count)
-      count += 1
-      print ("%s: %s" % ( threadName, time.ctime(time.time()) ))
 
-# Create two threads as follows
-try:
-    alarmMsgDict = {'10:29':1,'10:29':4}
-    print(alarmMsgDict.keys()
-    for alarm, msg in alarmMsgDict.items():
+ #A updater file that runs seperately. !!@
+
+testFileName = "testing.py"
+currentVersionFile = "FileVersion.txt"
+updateTextFile = 'Update.txt'
+
+
+def readUpateVersionNum( ):
+    #Getting current file version number
+    with open(currentVersionFile, "r") as x:
+        xupdateLines = x.readlines()
+    #getting update file version
+    with open(updateTextFile, "r") as newUpdate: 
+        updateLines = newUpdate.readlines()
+        newVersion = updateLines[0][:3]
+
+    #if diffent versions then update current file
+    if updateLines[0][:3] != xupdateLines[0]:
+        print("Update Needed")
+       # thisFileVersion = updateLines[0][:3]
+        with open(currentVersionFile, 'w') as y:
+            y.writelines(updateLines[0][:3])
+
+
+
+readUpateVersionNum()
+        
  
-        name = "Thread-" + str(msg)
-        _thread.start_new_thread( print_time, (alarm, msg, ) )
-except:
-   print ("Error: unable to start thread")
-
-while 1:
-   pass
