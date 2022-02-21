@@ -57,7 +57,7 @@ def checkForUpdate():
     r_new = r.text.split('\n')
     app_version_pull = float(r_new[0])
     update_link_pull = r_new[1]
-    outdated_by = (app_version_pull)-(app_version)
+    outdated_by = (float(app_version_pull))-(float(app_version))
     print(app_version)
     print(outdated_by)
 
