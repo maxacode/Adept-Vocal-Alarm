@@ -58,7 +58,8 @@ def checkForUpdate():
     app_version_pull = float(r_new[0])
     update_link_pull = r_new[1]
     outdated_by = (app_version_pull)-(app_version)
-   
+    print(app_version)
+
     #Chekcing if new version is higher then updating. 
     if app_version_pull > app_version:
         if "Force_update" in update_link_pull:
