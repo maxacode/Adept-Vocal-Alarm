@@ -59,6 +59,7 @@ def checkForUpdate():
     update_link_pull = r_new[1]
     outdated_by = (app_version_pull)-(app_version)
     print(app_version)
+    print(outdated_by)
 
     #Chekcing if new version is higher then updating. 
     if app_version_pull > app_version:
@@ -76,7 +77,7 @@ def checkForUpdate():
             print("Updaing now")
             exec(compile(open(updateFile).read(),updateFile,  'exec'))
             exit()
-        
+       
     readFile()
 
 
