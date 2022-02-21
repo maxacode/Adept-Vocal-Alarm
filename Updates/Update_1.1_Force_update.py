@@ -189,7 +189,7 @@ if __name__ == "__main__":
     #Logging setup.
     format= "%(asctime)s | %(levelname)s |  %(message)s"
     logging.basicConfig(format = format, filename='logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
-    logging.info("@@@@@@@@@@@@@@ Main Program start @@@@@@@@@@@@@@@")        
+    logging.info("%%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%")        
     basicLog("Main",f"Current Version: {app_version}")
     #System info Log
     basicLog("Main",f"OS: {platform.platform()} | Version: {platform.version()}")
