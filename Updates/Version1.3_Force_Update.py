@@ -65,7 +65,7 @@ def checkForUpdate():
    
     #Chekcing if new version is higher then updating. 
     if app_version_pull > app_version:
-        if "Force_update" in update_link_pull:
+        if "Force_Update" in update_link_pull:
             basicLog("checkForUpdate",f"Downloading Updater.py")    
             try:
                 #Downloading UpdaterFile
