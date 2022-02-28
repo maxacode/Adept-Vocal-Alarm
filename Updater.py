@@ -10,8 +10,8 @@ basicLog("updater.py",f"Starting Update")
 mainName = 'Main.py'
 
  #Renaming old file to _Old Might need a thread since the file is running live. 
-os.rename(mainName,"Main_Old.py")
-basicLog("updater.py",f"Rename Complete")    
+#os.rename(mainName,"Main_Old.py")
+#basicLog("updater.py",f"Rename Complete")    
 
  
 #Downloading new version
