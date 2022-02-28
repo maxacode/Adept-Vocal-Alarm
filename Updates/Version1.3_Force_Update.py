@@ -36,7 +36,7 @@ import sys
 # Static Variables Section
 
 #Current App Version 
-app_version = 1.1
+app_version = 1.3
 #Min before time to ring alarm
 alarmBefore = 1
 #Text to Speach TTS
