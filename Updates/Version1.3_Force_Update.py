@@ -28,6 +28,9 @@ import time
 import datetime
 import random
 import sys
+#To delete folder 
+import shutil
+
 
 #Refrences:
 #https://docs.python-requests.org/en/latest/user/quickstart/#passing-parameters-in-urls
@@ -44,7 +47,8 @@ import gtts
 from playsound import playsound
 #Where to save audio files
 audioFolder = 'Audio/'
-updateFile = "updater.py"
+updaterLink = "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updater.py"
+updateFile = "Updater.py"
 
  
 
@@ -61,8 +65,22 @@ def checkForUpdate():
    
     #Chekcing if new version is higher then updating. 
     if app_version_pull > app_version:
-        if "Force_Update" in update_link_pull:
+        if "Force_update" in update_link_pull:
+            basicLog("checkForUpdate",f"Downloading Updater.py")    
+            try:
+                #Downloading UpdaterFile
+                r = requests.get(updaterLink, allow_redirects=True)
+                #Writing new update to Updater.py file
+                with open(f"Updater.py", 'w') as writeFile:
+                    writeFile.write(r.text)
+                    basicLog("checkForUpdate",f"Update Complete")  
+            except Exception as e:
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                logger("checkForUpdate", e, fname, exc_tb.tb_lineno) 
+
             basicLog("checkForUpdate",f"Forcing Update")    
+            #Starting Updare file
             exec(compile(open(updateFile).read(),updateFile,  'exec'))
             exit()
 
@@ -81,8 +99,9 @@ def checkForUpdate():
 # ReadFile Section
 def readFile():
     basicLog("readFile","Starting Function - reading File")
+   # print(f"Time Now: {datetime.datetime.now()}")
     x = 0
-    alarmMsgDict = ['4:31','DoubleWide']
+    alarmMsgDict = ['20:06','DoubleWide']
     while x < len(alarmMsgDict):
         try:
             basicLog("readFile",f"Starting Alarm: {alarmMsgDict[x], alarmMsgDict[x+1]}")
@@ -119,7 +138,8 @@ def alarmTimer( alarm, msg):
       #  print(f"CurrentSec: {curr_sec}")
         # Calculating the number of seconds left for alarm
         time_diff = time_sec - curr_sec
-        time_diff_show = (f"Alarm in: Seconds: {time_diff} | Minutes: {round(time_diff/60)} | Hours: {round(time_diff/60/60)} for alarm: {currentAlarm}")
+        time_diff_show = (f"Time Now: {curr_sec} \n Alarm in: Seconds: {time_diff} | Minutes: {round(time_diff/60)} | Hours: {round(time_diff/60/60)} for alarm: {currentAlarm}")
+      #  print(time_diff_show)
         basicLog("alarmTimer",time_diff_show)
         #If time difference is negative, it means the alarm is for next day.
         if time_diff > -100 and time_diff < 60:
@@ -183,13 +203,22 @@ def basicLog(functionName,logMsg):
 # Main Section
 if __name__ == "__main__":
     #Logging setup.
+    print("\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! %%%%%%%%%%%%%%%%%%\n")
     format= "%(asctime)s | %(levelname)s |  %(message)s"
     logging.basicConfig(format = format, filename='logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
-    logging.info("\n%%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%\n")
+    logging.info("\dn\n                 %%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%\n")
     basicLog("Main",f"Current Version: {app_version}")
     #System info Log
     basicLog("Main",f"OS: {platform.platform()} | Version: {platform.version()}")
 
+    #Creating Audio folder and/or removing contents
+    try:
+        basicLog("Main", "Creating Audio File . ")
+        os.mkdir(audioFolder)
+    except:
+        basicLog("Main", "Deleting Contents of Audio File and creating a new one. ")
+        shutil.rmtree(audioFolder)
+        os.mkdir(audioFolder)
 
     checkForUpdate()
     #Waiting so threads can run and not stop. 
