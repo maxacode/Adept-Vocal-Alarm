@@ -29,9 +29,13 @@ except Exception as e:
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     logger("readFile", e, fname, exc_tb.tb_lineno) 
 
-
-basicLog("updater.py",f"Starting NEWWWW Main")
 print("Update Complete - Program Starting Up!")
-os.system(f"python3 {mainName}")
- 
+try:
+    basicLog("updater.py",f"New Main with Python3")
+    os.system(f"python {mainName}")
+
+except:
+    basicLog("updater.py",f"New Main with Python :")
+
+    os.system(f"python3 {mainName}")
 

@@ -105,7 +105,7 @@ def readFile():
     basicLog("readFile","Starting Function - reading File")
    # print(f"Time Now: {datetime.datetime.now()}")
     x = 0
-    alarmMsgDict = ['10:03','I Love You Kelsey!']
+    alarmMsgDict = ['20:21','I Love You Kelsey!']
     while x < len(alarmMsgDict):
         try:
             basicLog("readFile",f"Starting Alarm: {alarmMsgDict[x], alarmMsgDict[x+1]}")
@@ -184,10 +184,9 @@ def playAudio(alarm,msg):
         #API call to get the mp3 file
         engineTTS = gtts.gTTS(alarm+msg, lang='ru')
         #Saving the file
-        currTime = datetime.datetime.now()
-        engineTTS.save(currTime)
+        engineTTS.save(msgFull)
         #Playing the file. 
-        playsound(currTime)
+        playsound(msgFull)
         basicLog("playAudio", f"Downloaded and Played Audio: {msgFull} ")
 
     except Exception as e:
