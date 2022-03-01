@@ -184,9 +184,10 @@ def playAudio(alarm,msg):
         #API call to get the mp3 file
         engineTTS = gtts.gTTS(alarm+msg, lang='ru')
         #Saving the file
-        engineTTS.save(msgFull)
+        currTime = datetime.datetime.now()
+        engineTTS.save(currTime)
         #Playing the file. 
-        playsound(msgFull)
+        playsound(currTime)
         basicLog("playAudio", f"Downloaded and Played Audio: {msgFull} ")
 
     except Exception as e:
