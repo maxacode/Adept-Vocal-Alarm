@@ -105,7 +105,7 @@ def readFile():
     basicLog("readFile","Starting Function - reading File")
    # print(f"Time Now: {datetime.datetime.now()}")
     x = 0
-    alarmMsgDict = ['10:03','I Love You Kelsey!']
+    alarmMsgDict = ['20:21','I Love You Kelsey!']
     while x < len(alarmMsgDict):
         try:
             basicLog("readFile",f"Starting Alarm: {alarmMsgDict[x], alarmMsgDict[x+1]}")
