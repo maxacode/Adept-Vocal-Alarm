@@ -39,7 +39,7 @@ import shutil
 # Static Variables Section
 
 #Current App Version 
-app_version = 1.3
+app_version = 1.4
 #Min before time to ring alarm
 alarmBefore = 1
 #Text to Speach TTS
