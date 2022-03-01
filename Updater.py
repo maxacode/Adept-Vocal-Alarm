@@ -5,6 +5,7 @@
 import os
 #requests for downloading update. 
 import requests
+import time
 basicLog("updater.py",f"Starting Update")    
  
 mainName = 'Main.py'
@@ -29,7 +30,8 @@ except Exception as e:
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     logger("readFile", e, fname, exc_tb.tb_lineno) 
 
-print("Update Complete - Program Starting Up!")
+print("Update Complete - Program Starting Up in 10 Seconds!")
+time.sleep(10)
 try:
     basicLog("updater.py",f"New Main with Python")
     os.system(f"python {mainName}")

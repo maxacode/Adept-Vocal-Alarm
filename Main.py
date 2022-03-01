@@ -16,7 +16,7 @@ Later Release:
 
 """
 try:
-    print(' ')
+    
     #from distutils.log import error
     import platform
     from turtle import update
