@@ -59,38 +59,42 @@ def checkForUpdate():
     url = "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Update.txt"
     r = requests.get(url, allow_redirects=True)
     r_new = r.text.split('\n')
-    app_version_pull = float(r_new[0])
-    update_link_pull = r_new[1]
-    outdated_by = (float(app_version_pull))-(float(app_version))
-   
-    #Chekcing if new version is higher then updating. 
-    if app_version_pull > app_version:
-        if "Force_Update" in update_link_pull:
-            basicLog("checkForUpdate",f"Downloading Updater.py")    
-            try:
-                #Downloading UpdaterFile
-                r = requests.get(updaterLink, allow_redirects=True)
-                #Writing new update to Updater.py file
-                with open(f"Updater.py", 'w') as writeFile:
-                    writeFile.write(r.text)
-                    basicLog("checkForUpdate",f"Update Complete")  
-            except Exception as e:
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                logger("checkForUpdate", e, fname, exc_tb.tb_lineno) 
 
-            basicLog("checkForUpdate",f"Forcing Update")    
-            #Starting Updare file
-            exec(compile(open(updateFile).read(),updateFile,  'exec'))
-            exit()
+    if "404: Not Found" in r_new:
+        print("Error in Update, try again/contact developer!")
+    else:
+        app_version_pull = float(r_new[0])
+        update_link_pull = r_new[1]
+        outdated_by = (float(app_version_pull))-(float(app_version))
+    
+        #Chekcing if new version is higher then updating. 
+        if app_version_pull > app_version:
+            if "Force_Update" in update_link_pull:
+                basicLog("checkForUpdate",f"Downloading Updater.py")    
+                try:
+                    #Downloading UpdaterFile
+                    r = requests.get(updaterLink, allow_redirects=True)
+                    #Writing new update to Updater.py file
+                    with open(f"Updater.py", 'w') as writeFile:
+                        writeFile.write(r.text)
+                        basicLog("checkForUpdate",f"Update Complete")  
+                except Exception as e:
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                    logger("checkForUpdate", e, fname, exc_tb.tb_lineno) 
 
-        print(f"Your Version is Outdated by {str(outdated_by)[:4]}")
-        updateQ = input("Update Available, Update Now (Y/N): ")
-        basicLog("checkForUpdate",f"Update: {updateQ}")
-        if updateQ.lower() == "y":
-            print("\nUpdating now! Please wait a few milliseconds. Program will Continue after Update \n")
-            exec(compile(open(updateFile).read(),updateFile,  'exec'))
-            exit()
+                basicLog("checkForUpdate",f"Forcing Update")    
+                #Starting Updare file
+                exec(compile(open(updateFile).read(),updateFile,  'exec'))
+                exit()
+
+            print(f"Your Version is Outdated by {str(outdated_by)[:4]}")
+            updateQ = input("Update Available, Update Now (Y/N): ")
+            basicLog("checkForUpdate",f"Update: {updateQ}")
+            if updateQ.lower() == "y":
+                print("\nUpdating now! Please wait a few milliseconds. Program will Continue after Update \n")
+                exec(compile(open(updateFile).read(),updateFile,  'exec'))
+                exit()
        
     readFile()
 
