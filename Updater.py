@@ -32,10 +32,10 @@ except Exception as e:
 print("Update Complete - Program Starting Up!")
 try:
     basicLog("updater.py",f"New Main with Python3")
-    os.system(f"python3 {mainName}")
+    os.system(f"python {mainName}")
 
 except:
     basicLog("updater.py",f"New Main with Python :")
 
-    os.system(f"python {mainName}")
+    os.system(f"python3 {mainName}")
 
