@@ -4,4 +4,4 @@
 
 ## Smart alarm that will go off X amount of time before and voice the Message.
 
-## Version 1.4
+## Version 1.4.
