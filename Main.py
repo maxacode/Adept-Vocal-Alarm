@@ -270,6 +270,7 @@ try:
         #Waiting so threads can run and not stop. 
         while 1:
             pass
+        
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
     exc_type, exc_obj, exc_tb = sys.exc_info()
