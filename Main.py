@@ -15,6 +15,10 @@ Later Release:
     Multiple voices
 
 """
+from genericpath import exists
+from itertools import count
+
+
 try:
     
     #from distutils.log import error
@@ -103,21 +107,51 @@ try:
     ###########################################################################
     # ReadFile Section
     def readFile():
+        alarmMsgDict = []
         basicLog("readFile","Starting Function - reading File")
-    # print(f"Time Now: {datetime.datetime.now()}")
-        x = 0
-        alarmMsgDict = ['20:21','I Love You Kelsey!']
-        while x < len(alarmMsgDict):
+        
+        if exists("alarms.txt"):
+        #Reading file to extract alarms and text.
+            file = open("alarms.txt", "r")        
             try:
-                basicLog("readFile",f"Starting Alarm: {alarmMsgDict[x], alarmMsgDict[x+1]}")
-                print(f"Starting alarm for: {alarmMsgDict[x], alarmMsgDict[x+1]}")
-                _thread.start_new_thread( alarmTimer, (alarmMsgDict[x], alarmMsgDict[x+1], ) )
-                x+= 2
+                for line in file:
+                    if line == '' or line == ' ':
+                        continue
+                    time, phrase = line.split(",")
+                #    print(time)
+                    alarmMsgDict.append(str(time))
+                    alarmMsgDict.append(phrase)
+                #    print(alarmMsgDict)
             except Exception as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 logger("readFile", e, fname, exc_tb.tb_lineno)           
-                x+=2
+                pass
+
+            file.close()
+        else:
+            curr_time = str(datetime.datetime.now())
+            curr_time = curr_time[10:19]
+            alarmMsgDict = [curr_time ,'I Love You Kelsey!']
+
+        global specificAlarm
+        specificAlarm = 0
+        # !!!!!!! To alwasy go off in 10 seconds from now. 
+ 
+        ## !!! Above from this delete 
+        
+        #Starting loop to launch each alarm in a thread.
+        while specificAlarm < len(alarmMsgDict):
+            try:
+                basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1]}")
+                print(f"Starting alarm for: {alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1]}")
+                _thread.start_new_thread( alarmTimer, (alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1], ) )
+                specificAlarm+= 2
+            except Exception as e:
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                logger("readFile", e, fname, exc_tb.tb_lineno)           
+                specificAlarm+=2
                 continue
 
     ###########################################################################
@@ -126,29 +160,34 @@ try:
     def alarmTimer( alarm, msg):
         basicLog("alarmTimer","Starting AlarmTimer Function")
         try:
-        # print(alarm,msg)
+
+            #Adding 12 hours to alaram if its under 12 - time reasonning - need to make better
             currentAlarm = alarm
             alarmSplit = currentAlarm.split(":")
+
             if int(alarmSplit[0]) < 8:
-                #print(f"{alarmSplit[0]} alarm split")
                 alarmSplit[0] = int(alarmSplit[0]) + 12
-            #  print(f"{alarmSplit[0]} alarm split after *12")
+                        
             # Converting the alarm time to seconds
             time_sec = int(alarmSplit[0])*3600 + (int(alarmSplit[1])-alarmBefore)*60
-        #  print(f"time_sec: {time_sec}")
-            # Getting current time and converting it to seconds
+            
+             # Getting current time and date it to seconds
             curr_time = datetime.datetime.now()
-        #  print(f"Current Time: {curr_time}")
             curr_sec = curr_time.hour*3600 + curr_time.minute*60 + curr_time.second
-        #  print(f"CurrentSec: {curr_sec}")
-            # Calculating the number of seconds left for alarm
+            
+             # Calculating the number of seconds left for alarm
             time_diff = time_sec - curr_sec
-            time_diff_show = (f"Time Now: {curr_sec} \n Alarm in: Seconds: {time_diff} | Minutes: {round(time_diff/60)} | Hours: {round(time_diff/60/60)} for alarm: {currentAlarm}")
-        #  print(time_diff_show)
+            time_diff_show = (f"Time Now: {curr_sec} - Alarm Time: {time_sec} \n Alarm in: Seconds: {time_diff} \
+| Minutes: {round(time_diff/60)} | Hours: {round(time_diff/60/60)} for alarm: {currentAlarm}")
+           #
+           #  print(time_diff_show)
             basicLog("alarmTimer",time_diff_show)
-            #If time difference is negative, it means the alarm is for next day.
-            if time_diff > -100 and time_diff < 60:
-                randInt = random.randint(1,45)
+            
+            #If time difference is negative, it means the alarm is passed by -x H/M/Seconds.
+            #Put this back:             if time_diff > -100 and time_diff < 60:
+            if time_diff > -100 and time_diff < 600:
+                #Put this back:  randInt = random.randint(1,45)
+                randInt = random.randint(1,5)
                 time_diff = randInt
             elif time_diff < -110:
                 print("------ALARM PASSED----")
@@ -180,15 +219,16 @@ try:
         basicLog("playAudio","Starting playAudio Function")
         try:
             #Full name of file Audio+alarm+msg and .mp3    
-            msgFull = audioFolder + alarm + " " + msg + ".mp3"
+            msgFull = audioFolder + str(specificAlarm) + ".mp3"
             basicLog("playAudio", f"Downloading Audio: {msgFull}")
             #API call to get the mp3 file
-            engineTTS = gtts.gTTS(alarm+msg, lang='ru')
+            engineTTS = gtts.gTTS(alarm+msg)
             #Saving the file
             currTime = datetime.datetime.now()
-            engineTTS.save(currTime)
+            engineTTS.save(msgFull)
             #Playing the file. 
-            playsound(currTime)
+            playsound(msgFull)
+            print(f"Downloaded and Played Audio: {msgFull} ")
             basicLog("playAudio", f"Downloaded and Played Audio: {msgFull} ")
 
         except Exception as e:
@@ -232,4 +272,6 @@ try:
             pass
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
-    
+    exc_type, exc_obj, exc_tb = sys.exc_info()
+    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+    logger("Main Except", e, fname, exc_tb.tb_lineno)
