@@ -17,17 +17,17 @@ Later Release:
 """
 from genericpath import exists
 from itertools import count
+from random import randrange
+from unicodedata import name
 
 
 try:
     
     #from distutils.log import error
     import platform
-    from turtle import update
     import requests
     import os
     import logging
-    import threading
     import _thread
     import time
     import datetime
@@ -35,38 +35,82 @@ try:
     import sys
     #To delete folder 
     import shutil
+    #Config Parser
+    from configparser import ConfigParser
+    import csv
 
+    from configparser import ConfigParser
+ 
 
     #Refrences:
     #https://docs.python-requests.org/en/latest/user/quickstart/#passing-parameters-in-urls
 
-    ###########################################################################
-    # Static Variables Section
-
-    #Current App Version 
+###########################################################################
+# Static Variables Section
+   
+     #Current App Version 
     app_version = 1.4
+
     #Min before time to ring alarm
     alarmBefore = 1
+    global specificAlarm
+    specificAlarm = 0
     #Text to Speach TTS
     import gtts
     from playsound import playsound
-    #Where to save audio files
-    audioFolder = 'Audio/'
-    updaterLink = "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updater.py"
-    updateFile = "Updater.py"
 
+    #OS this is running on: 
+    global OSystem
+    if "macOS" in platform.platform():
+        OSystem = "mac"
+    else:
+        OSystem = "win"
     
+    #Where to save audio files
+    if OSystem == "mac":
+        slash = "/"
+    else:
+        slash = "\\"
 
-        ###########################################################################
-        # Update Section
+ 
+
+###########################################################################
+# Read config file Section
+    def readConfigINI():
+        global config
+        config = ConfigParser()
+        #Remove after this goes public
+       # os.chdir('adept-venv\Adept-Vocal-Alarm')
+       # print(os.getcwd())
+        config.read("config.ini")
+        
+        
+        #min before time before to ring alarm
+        global minBeforeAlarm
+        minBeforeAlarm = config.get('DEFAULTS', 'minutes before time to ring alarm')
+        
+  
+ 
+
+        checkForUpdate()
+###########################################################################
+# Update Section
+
     def checkForUpdate():
         #getting Version and URL update
-        url = "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Update.txt"
+
+        updaterLink = config.get('Ignore_Program_Config', 'updater link')
+        updateFile = config.get('Ignore_Program_Config', 'update file')
+        url = config.get('Ignore_Program_Config', 'update file text')
+        
+         
+        #Downloaind Update Info text file
         r = requests.get(url, allow_redirects=True)
         r_new = r.text.split('\n')
 
         if "404: Not Found" in r_new:
             print("Error in Update, try again/contact developer!")
+            pass
         else:
             app_version_pull = float(r_new[0])
             update_link_pull = r_new[1]
@@ -110,48 +154,75 @@ try:
         alarmMsgDict = []
         basicLog("readFile","Starting Function - reading File")
         
-        if exists("alarms.txt"):
+        if exists("alarms.csv"):
         #Reading file to extract alarms and text.
-            file = open("alarms.txt", "r")        
-            try:
-                for line in file:
-                    if line == '' or line == ' ':
+           
+            #Reading Vars form Config.ini
+            config = ConfigParser()
+  
+            config.read("config.ini")
+            firstColumn = 'First_Column_Voice'
+            secondColumn = 'Second_Column_Voice'
+            thirdColum = 'Third_Column_Location'
+            fullMsg = ''
+            file = open("alarms.csv")
+            csvreader = csv.reader(file)
+ 
+            for alarm in csvreader:
+                try:
+                    
+                    if "Time:" in alarm:
                         continue
-                    time, phrase = line.split(",")
-                #    print(time)
-                    alarmMsgDict.append(str(time))
-                    alarmMsgDict.append(phrase)
-                #    print(alarmMsgDict)
-            except Exception as e:
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                logger("readFile", e, fname, exc_tb.tb_lineno)           
-                pass
+                    elif alarm[0] == '':
+                        break
+                   
+                #Full Message of this Alarm
+                    fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                    alarmMsgDict.append(fullMsg)
+ 
+                except Exception as e:
+             
+                    e = str(e)
+                    if firstColumn in e:
+                        fullMsg = alarm[0], config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                        alarmMsgDict.append(fullMsg)
+                    elif secondColumn in e:
+                        fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()), config.get( thirdColum, alarm[3].lower())
+                        alarmMsgDict.append(fullMsg)
 
+                    elif thirdColum in e:
+                        fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower())
+                        alarmMsgDict.append(fullMsg)
+                    
+                    else:
+                        continue
             file.close()
         else:
+         # !!!!!!! To alwasy go off in 10 seconds from now. 
+ 
             curr_time = str(datetime.datetime.now())
             curr_time = curr_time[10:19]
-            alarmMsgDict = [curr_time ,'I Love You Kelsey!']
-
+            alarmMsgDict = [curr_time ,"('820', '!!!!Double Bottom', 'Stop Run')"]
+                ## !!! Above from this delete 
+      
+        #Var for keeping track each ALarm line during loop and name to save Audio file as. 
         global specificAlarm
         specificAlarm = 0
-        # !!!!!!! To alwasy go off in 10 seconds from now. 
- 
-        ## !!! Above from this delete 
-        
         #Starting loop to launch each alarm in a thread.
+         
         while specificAlarm < len(alarmMsgDict):
+           
             try:
-                basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1]}")
-                print(f"Starting alarm for: {alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1]}")
-                _thread.start_new_thread( alarmTimer, (alarmMsgDict[specificAlarm], alarmMsgDict[specificAlarm+1], ) )
-                specificAlarm+= 2
+                basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm]}")
+                print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
+                _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], ) )
+                specificAlarm+= 1
+                time.sleep(5)
             except Exception as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 logger("readFile", e, fname, exc_tb.tb_lineno)           
-                specificAlarm+=2
+                specificAlarm+=1
                 continue
 
     ###########################################################################
@@ -165,11 +236,13 @@ try:
             currentAlarm = alarm
             alarmSplit = currentAlarm.split(":")
 
-            if int(alarmSplit[0]) < 8:
+            if int(alarmSplit[0]) < 7:
                 alarmSplit[0] = int(alarmSplit[0]) + 12
                         
             # Converting the alarm time to seconds
             time_sec = int(alarmSplit[0])*3600 + (int(alarmSplit[1])-alarmBefore)*60
+            #Subtracting global minBeforeAlarm
+            time_sec -= (int(minBeforeAlarm)*60)
             
              # Getting current time and date it to seconds
             curr_time = datetime.datetime.now()
@@ -180,28 +253,30 @@ try:
             time_diff_show = (f"Time Now: {curr_sec} - Alarm Time: {time_sec} \n Alarm in: Seconds: {time_diff} \
 | Minutes: {round(time_diff/60)} | Hours: {round(time_diff/60/60)} for alarm: {currentAlarm}")
            #
-           #  print(time_diff_show)
+            #print(time_diff_show)
             basicLog("alarmTimer",time_diff_show)
             
             #If time difference is negative, it means the alarm is passed by -x H/M/Seconds.
             #Put this back:             if time_diff > -100 and time_diff < 60:
-            if time_diff > -100 and time_diff < 600:
-                #Put this back:  randInt = random.randint(1,45)
-                randInt = random.randint(1,5)
+            if time_diff > -1000 and time_diff < 6000:
+                #Put this back:  randInt = random.randint(10,50)
+                randInt = random.randint(1,10) + random.randint(1,15)
                 time_diff = randInt
-            elif time_diff < -110:
-                print("------ALARM PASSED----")
-                basicLog("alarmTimer","------ALARM PASSED----")
+            elif time_diff < -11110:
+                print(f"-----ALARM PASSED-----")
+                basicLog(f"alarmTimer","-----ALARM PASSED----- {alarm} {msg}")
                 exit()
             elif time_diff > 0:
                 pass
             else:
-                basicLog("alarmTimer","------ALARM PASSED - Else----")
-                exit() 
+                print(f"-----ALARM PASSED-----")
+                basicLog(f"alarmTimer","------ALARM PASSED - Else----{alarm} {msg}")
+                # before it was: exit() 
+                pass
 
             # Displaying the time left for alarm
-            print("\nTime left for alarm is %s" % datetime.timedelta(seconds=time_diff))
-            basicLog("alarmTimer", f"Time left for alarm is {datetime.timedelta(seconds=time_diff)}")
+            print(f"-----Time left for alarm {alarm} is %s" % datetime.timedelta(seconds=time_diff))
+            basicLog("alarmTimer", f"Time left for alarm is {alarm} | {msg} | {datetime.timedelta(seconds=time_diff)}")
 
             # Sleep until the time at which alarm rings
             time.sleep(time_diff)
@@ -218,14 +293,24 @@ try:
     def playAudio(alarm,msg):
         basicLog("playAudio","Starting playAudio Function")
         try:
+            specificAlarm = 0
+            specificAlarm += randrange(2,9999)
             #Full name of file Audio+alarm+msg and .mp3    
-            msgFull = audioFolder + str(specificAlarm) + ".mp3"
+            msgFull = audioFolder + slash + str(specificAlarm) + ".mp3"
             basicLog("playAudio", f"Downloading Audio: {msgFull}")
             #API call to get the mp3 file
-            engineTTS = gtts.gTTS(alarm+msg)
+            #Accents 
+            engineTTS = gtts.gTTS((str(msg)) , lang='en', tld="co.uk")
+
+            #London:             engineTTS = gtts.gTTS(alarm+msg, lang='en', tld="co.uk")
             #Saving the file
             currTime = datetime.datetime.now()
-            engineTTS.save(msgFull)
+            try:
+                engineTTS.save(msgFull)
+            except:
+                specificAlarm += randrange(2,9999)
+                msgFull = str(specificAlarm) + ".mp3"
+                engineTTS.save(msgFull)
             #Playing the file. 
             playsound(msgFull)
             print(f"Downloaded and Played Audio: {msgFull} ")
@@ -251,12 +336,13 @@ try:
         #Logging setup.
         print("\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! %%%%%%%%%%%%%%%%%%\n")
         format= "%(asctime)s | %(levelname)s |  %(message)s"
-        logging.basicConfig(format = format, filename='logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
+        logging.basicConfig(format = format, filename='SupportingFiles/logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info("\n\n                 %%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%\n")
         basicLog("Main",f"Current Version: {app_version}")
         #System info Log
         basicLog("Main",f"OS: {platform.platform()} | Version: {platform.version()}")
-
+        
+        audioFolder = ("SupportingFiles" + slash + "Audio")
         #Creating Audio folder and/or removing contents
         try:
             basicLog("Main", "Creating Audio File . ")
@@ -266,7 +352,7 @@ try:
             shutil.rmtree(audioFolder)
             os.mkdir(audioFolder)
 
-        checkForUpdate()
+        readConfigINI()
         #Waiting so threads can run and not stop. 
         while 1:
             pass

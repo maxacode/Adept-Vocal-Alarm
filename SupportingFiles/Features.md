@@ -2,8 +2,9 @@
 - Update mechanism 
 - Read file 
 - List confirmations
-- Config file with mappings of Letters to Words. 
-- send logs if C&C asks for it.
+- Config file with mappings of Letters to Words 
+    - Time to alarm before Time column
+- <span style="color:red"> send logs if C&C asks for it.</span>.
 
 # Later Release:
 - Run once and can’t change unless run again (Refresh from File button maybe?
