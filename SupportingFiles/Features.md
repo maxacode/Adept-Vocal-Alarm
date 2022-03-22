@@ -1,9 +1,13 @@
 # Initial Release:
 - Update mechanism 
 - Read file 
-- List confirmations
 - Config file with mappings of Letters to Words 
-    - Time to alarm before Time column
+
+# TODO:
+- Change voices
+- Check if COnfig.ini was already made - if so no need to run it.
+- if config file messed up then do a brand new default one. 
+- option to save as default config file? 
 - <span style="color:red"> send logs if C&C asks for it.</span>.
 
 # Later Release:
