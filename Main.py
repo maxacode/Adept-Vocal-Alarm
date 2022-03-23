@@ -209,15 +209,19 @@ try:
         global specificAlarm
         specificAlarm = 0
         #Starting loop to launch each alarm in a thread.
-         
-        while specificAlarm < len(alarmMsgDict):
+        global numOfAlarms
+        numOfAlarms = len(alarmMsgDict)
+
+        while specificAlarm < numOfAlarms:
            
             try:
+                time.sleep(.5)
                 basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm]}")
-                print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
+                #print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
                 _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], ) )
+                print(f"Alarm: {specificAlarm} / {numOfAlarms} --- {alarmMsgDict[specificAlarm]}")
                 specificAlarm+= 1
-                time.sleep(5)
+                
             except Exception as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -258,24 +262,24 @@ try:
             
             #If time difference is negative, it means the alarm is passed by -x H/M/Seconds.
             #Put this back:             if time_diff > -100 and time_diff < 60:
-            if time_diff > -1000 and time_diff < 6000:
+            if time_diff > -100 and time_diff < 60:
                 #Put this back:  randInt = random.randint(10,50)
-                randInt = random.randint(1,10) + random.randint(1,15)
+                randInt = random.randint(1,10)
                 time_diff = randInt
-            elif time_diff < -11110:
-                print(f"-----ALARM PASSED-----")
-                basicLog(f"alarmTimer","-----ALARM PASSED----- {alarm} {msg}")
+            elif time_diff < -100:
+                print(f"-----ALARM PASSED-----\n")
+                basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
                 exit()
             elif time_diff > 0:
                 pass
             else:
-                print(f"-----ALARM PASSED-----")
-                basicLog(f"alarmTimer","------ALARM PASSED - Else----{alarm} {msg}")
+                print(f"-----ALARM PASSED-----\n")
+                basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
                 # before it was: exit() 
                 pass
 
             # Displaying the time left for alarm
-            print(f"-----Time left for alarm {alarm} is %s" % datetime.timedelta(seconds=time_diff))
+            print(f"-----Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
             basicLog("alarmTimer", f"Time left for alarm is {alarm} | {msg} | {datetime.timedelta(seconds=time_diff)}")
 
             # Sleep until the time at which alarm rings
@@ -291,12 +295,13 @@ try:
 
 
     def playAudio(alarm,msg):
+        global specificAlarm
         basicLog("playAudio","Starting playAudio Function")
         try:
-            specificAlarm = 0
-            specificAlarm += randrange(2,9999)
+            specificAlarm2 = 0
+            specificAlarm2 += randrange(2,9999)
             #Full name of file Audio+alarm+msg and .mp3    
-            msgFull = audioFolder + slash + str(specificAlarm) + ".mp3"
+            msgFull = audioFolder + slash + str(specificAlarm2) + ".mp3"
             basicLog("playAudio", f"Downloading Audio: {msgFull}")
             #API call to get the mp3 file
             #Accents 
@@ -313,8 +318,8 @@ try:
                 engineTTS.save(msgFull)
             #Playing the file. 
             playsound(msgFull)
-            print(f"Downloaded and Played Audio: {msgFull} ")
-            basicLog("playAudio", f"Downloaded and Played Audio: {msgFull} ")
+            print(f"Downloaded and Played Audio: {msgFull} - ")
+            basicLog("playAudio", f"Downloaded and Played Audio: {msgFull}")
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()

@@ -8,6 +8,7 @@
 - Check if COnfig.ini was already made - if so no need to run it.
 - if config file messed up then do a brand new default one. 
 - option to save as default config file? 
+- functionality are Updates since folder now "SupportingFiles"
 - <span style="color:red"> send logs if C&C asks for it.</span>.
 
 # Later Release:
