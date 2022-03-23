@@ -1,2 +1,2 @@
-1.4
+1.6
 https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Main.py

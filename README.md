@@ -6,6 +6,7 @@
 
 ## Smart alarm that will go off X amount of time before and voice the Message.
 
+# Version 1.6
 # Steps:
 1. Ensure a 'todays Date 3/11'.csv is in root directory. 
 2. Run 'Main.py' and follow prompts. 
