@@ -1,2 +1,2 @@
 1.7
-https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updates/Version1.3_Force_Update.py
+https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updates/Version1.7_Force_Update.py
