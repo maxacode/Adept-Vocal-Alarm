@@ -173,7 +173,7 @@ try:
               #  print(x)
                 if dateToday[1:2] in x and dateToday[3:5] in x:
                     fileName = x
-                    print(f"Found the Alarms File: {x}\n")
+                    print(f"Found the Alarms File: {x}")
                     break
             break
 
