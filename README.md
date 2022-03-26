@@ -8,6 +8,6 @@
 
 # Version 1.6
 # Steps:
-1. Ensure a 'todays Date 3/11'.csv is in root directory. 
-2. Run 'Main.py' and follow prompts. 
-3. Change 'Config.ini' to any mappings you want. Ensure the format is retained. 
+1. Ensure todays Date '3-11.csv' is in the SAME directory. 
+2. Change 'Config.ini' to any mappings you want. Ensure the format is retained. 
+3. Run 'Main.py' and follow prompts. 

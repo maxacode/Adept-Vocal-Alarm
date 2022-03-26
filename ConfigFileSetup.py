@@ -94,8 +94,8 @@ try:
             'Host Username: '           :   host_username,
             'Host Platform: '           :   host_platform,
             'Updater Link'              :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updater.py",
-            'Update File'               :   "Updater.py",
-            'Update File Text'          : "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Update.txt",
+            'Update File'               :   "SupportingFiles\\Updater.py",
+            'Update File Text'          :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt",
         }
 
 

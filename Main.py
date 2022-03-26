@@ -2,44 +2,59 @@
 #Smart alarm that will go off X amount of time before and voice the Message
 #!/usr/bin/python
 
-"""
-Initial Release:
-    Update mechanism 
-    Read file 
-    List confirmations
-    Run once and can’t change unless run again (Refresh from File)
-
-
-Later Release:
-    Dynamic updates in program.
-    Multiple voices
-
-"""
-from genericpath import exists
-from itertools import count
-from random import randrange
-from unicodedata import name
-
-
 try:
     
     #from distutils.log import error
     import platform
+    #To downline files vai HTTP
     import requests
     import os
+    #Logg all to file
     import logging
+    #Running each alarm in a seperat thread
     import _thread
+    #Dates 
     import time
     import datetime
+    #Random number generator for file names
     import random
+    from random import randrange
+    #Execute sys level logging
     import sys
     #To delete folder 
     import shutil
-    #Config Parser
+
+    #Config Parser and CSV Reader
     from configparser import ConfigParser
     import csv
 
-    from configparser import ConfigParser
+    #Toget all files and find the correct CSV
+    from os import walk
+    from genericpath import exists
+
+    #Text to Speach TTS
+    import gtts
+    from playsound import playsound
+
+    #Socket To get sys info
+    import socket, urllib
+ 
+###########################################################################
+# Sentry plug for monitoirng
+    from sentry_sdk import capture_exception
+    from sentry_sdk import capture_message
+    from sentry_sdk import set_level
+    from sentry_sdk.scope import Scope
+    from sentry_sdk import configure_scope, push_scope
+    from sentry_sdk.api import capture_exception
+
+    import sentry_sdk
+    set_level("warning")
+
+    sentry_sdk.init(
+    "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
+    traces_sample_rate=1.0
+    )
  
 
     #Refrences:
@@ -49,16 +64,13 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 1.4
+    app_version = 1.6
 
     #Min before time to ring alarm
     alarmBefore = 1
     global specificAlarm
     specificAlarm = 0
-    #Text to Speach TTS
-    import gtts
-    from playsound import playsound
-
+ 
     #OS this is running on: 
     global OSystem
     if "macOS" in platform.platform():
@@ -153,8 +165,19 @@ try:
     def readFile():
         alarmMsgDict = []
         basicLog("readFile","Starting Function - reading File")
-        
-        if exists("alarms.csv"):
+        #Gettinf file name in directory:
+        dateTime = str(datetime.datetime.now())
+        dateToday = dateTime[5:11]
+        for (dirpath, dirnames, filenames) in walk("."):
+            for x in filenames:
+              #  print(x)
+                if dateToday[1:2] in x and dateToday[3:5] in x:
+                    fileName = x
+                    print(f"Found the Alarms File: {x}\n")
+                    break
+            break
+
+        if exists(fileName):
         #Reading file to extract alarms and text.
            
             #Reading Vars form Config.ini
@@ -165,9 +188,10 @@ try:
             secondColumn = 'Second_Column_Voice'
             thirdColum = 'Third_Column_Location'
             fullMsg = ''
-            file = open("alarms.csv")
+            file = open(fileName)
             csvreader = csv.reader(file)
- 
+
+            #Looping through each allarm and adding to full msg
             for alarm in csvreader:
                 try:
                     
@@ -176,50 +200,73 @@ try:
                     elif alarm[0] == '':
                         break
                    
+                #Checking format of Time:
+                    alarm0 = alarm[0]
+                 #   print(alarm0)
+                    if ":" not in alarm0:
+                      #  print(203)
+                        if len(alarm0) == 3:
+                            alarm0Done = alarm0[0] + ":" + alarm0[1:]
+                        elif len(alarm0) == 4:
+                            alarm0Done = alarm0[:2] + ":" + alarm0[2:]
+                    else:
+                        alarm0Done = alarm0
+                    #print(alarm0Done)
                 #Full Message of this Alarm
-                    fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                    fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
                     alarmMsgDict.append(fullMsg)
  
                 except Exception as e:
              
                     e = str(e)
                     if firstColumn in e:
-                        fullMsg = alarm[0], config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                        fullMsg = alarm0Done, config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
                         alarmMsgDict.append(fullMsg)
                     elif secondColumn in e:
-                        fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()), config.get( thirdColum, alarm[3].lower())
+                        fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()), config.get( thirdColum, alarm[3].lower())
                         alarmMsgDict.append(fullMsg)
 
                     elif thirdColum in e:
-                        fullMsg = alarm[0], config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower())
+                        fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower())
                         alarmMsgDict.append(fullMsg)
                     
                     else:
                         continue
             file.close()
         else:
+            print(f"\n !!!!! CAUTION !!!!!!!!!!!!!! \n Can Not Find a file Named: {dateToday} rename your CSV file to this.")
          # !!!!!!! To alwasy go off in 10 seconds from now. 
  
-            curr_time = str(datetime.datetime.now())
-            curr_time = curr_time[10:19]
-            alarmMsgDict = [curr_time ,"('820', '!!!!Double Bottom', 'Stop Run')"]
+           # curr_time = str(datetime.datetime.now())
+          #  curr_time = curr_time[10:16]
+          #  alarmMsgDict = [(curr_time, "Double Bottom", "Stop Run", "China")]
                 ## !!! Above from this delete 
       
         #Var for keeping track each ALarm line during loop and name to save Audio file as. 
         global specificAlarm
+        
         specificAlarm = 0
         #Starting loop to launch each alarm in a thread.
         global numOfAlarms
         numOfAlarms = len(alarmMsgDict)
-
+        #print(alarmMsgDict)
         while specificAlarm < numOfAlarms:
            
             try:
-                time.sleep(.5)
+                time.sleep(1.5)
+               # print(alarmMsgDict[specificAlarm])
                 basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm]}")
                 #print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
-                _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], ) )
-                print(f"Alarm: {specificAlarm} / {numOfAlarms} --- {alarmMsgDict[specificAlarm]}")
+                #Checking if next alarm is same time:
+                # if float(alarmMsgDict[specificAlarm][0][3:]) == float(alarmMsgDict[specificAlarm+1][0][3:]):
+                #     print("If 243")
+                #     time.sleep(10)
+                # elif float(alarmMsgDict[specificAlarm][0][3:]) == float(alarmMsgDict[specificAlarm+1][0][3:]) - 1):
+                #     print("Elif 245")
+                #     time.sleep(10)
+                numAlarm = specificAlarm
+                _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], numAlarm ) )
+                print(f"Alarm: {specificAlarm + 1} / {numOfAlarms} --- {alarmMsgDict[specificAlarm]}")
                 specificAlarm+= 1
                 
             except Exception as e:
@@ -232,10 +279,10 @@ try:
     ###########################################################################
     # Timer Section!!!!!!!!
 
-    def alarmTimer( alarm, msg):
+    def alarmTimer( alarm, msg, numAlarm):
         basicLog("alarmTimer","Starting AlarmTimer Function")
         try:
-
+            global time_diff
             #Adding 12 hours to alaram if its under 12 - time reasonning - need to make better
             currentAlarm = alarm
             alarmSplit = currentAlarm.split(":")
@@ -244,6 +291,7 @@ try:
                 alarmSplit[0] = int(alarmSplit[0]) + 12
                         
             # Converting the alarm time to seconds
+            #print(f"286 {alarmSplit}")
             time_sec = int(alarmSplit[0])*3600 + (int(alarmSplit[1])-alarmBefore)*60
             #Subtracting global minBeforeAlarm
             time_sec -= (int(minBeforeAlarm)*60)
@@ -264,27 +312,30 @@ try:
             #Put this back:             if time_diff > -100 and time_diff < 60:
             if time_diff > -100 and time_diff < 60:
                 #Put this back:  randInt = random.randint(10,50)
-                randInt = random.randint(1,10)
+                randInt = random.randint(10, 50)
+                numAlarm+=1
                 time_diff = randInt
             elif time_diff < -100:
                 print(f"-----ALARM PASSED-----\n")
                 basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
+                numAlarm +=1
+                
                 exit()
-            elif time_diff > 0:
-                pass
-            else:
-                print(f"-----ALARM PASSED-----\n")
-                basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
-                # before it was: exit() 
-                pass
+           # else:
+            #    print(f"-----ALARM PASSED-----\n")
+              #  basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
+             #   # before it was: exit() 
+                #exit()
 
             # Displaying the time left for alarm
             print(f"-----Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
             basicLog("alarmTimer", f"Time left for alarm is {alarm} | {msg} | {datetime.timedelta(seconds=time_diff)}")
-
+            
             # Sleep until the time at which alarm rings
+             
             time.sleep(time_diff)
-            playAudio(currentAlarm, msg)   
+            playAudio(currentAlarm, msg, numAlarm)
+            
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -294,8 +345,8 @@ try:
     # Alarm Section
 
 
-    def playAudio(alarm,msg):
-        global specificAlarm
+    def playAudio(alarm,msg,numAlarm):
+        
         basicLog("playAudio","Starting playAudio Function")
         try:
             specificAlarm2 = 0
@@ -304,22 +355,38 @@ try:
             msgFull = audioFolder + slash + str(specificAlarm2) + ".mp3"
             basicLog("playAudio", f"Downloading Audio: {msgFull}")
             #API call to get the mp3 file
-            #Accents 
-            engineTTS = gtts.gTTS((str(msg)) , lang='en', tld="co.uk")
-
-            #London:             engineTTS = gtts.gTTS(alarm+msg, lang='en', tld="co.uk")
+            if "London" in msg:
+               # print("London Message")
+                engineTTS = gtts.gTTS((str(msg)) , lang='en', tld="co.uk")
+            elif "China" in msg:
+                pass
+            else:
+                #print("Normal EN Com")
+                engineTTS = gtts.gTTS((str(msg)) , lang='en', tld="com")
+   
             #Saving the file
             currTime = datetime.datetime.now()
             try:
                 engineTTS.save(msgFull)
             except:
-                specificAlarm += randrange(2,9999)
-                msgFull = str(specificAlarm) + ".mp3"
+                engineTTS = gtts.gTTS((str(msg)) , lang='en', tld="com")
+                specificAlarm2 += randrange(2,9999)
+                msgFull = audioFolder + slash + str(specificAlarm2) + ".mp3"
                 engineTTS.save(msgFull)
             #Playing the file. 
             playsound(msgFull)
             print(f"Downloaded and Played Audio: {msgFull} - ")
             basicLog("playAudio", f"Downloaded and Played Audio: {msgFull}")
+            basicLog("PlayAudio", f"Did Alarm: {numAlarm+1}/{numOfAlarms}")
+            if (numAlarm+1) == (numOfAlarms):
+                basicLog("PlayAudio", f"Did all alarms! {numAlarm+1}/{numOfAlarms}")
+                
+                if time_diff > 0:
+                    time.sleep(time_diff + 10)
+                    sentrySend()
+                #print("Done with all alarms 358")
+        
+            quit()
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -327,25 +394,68 @@ try:
             logger("playAudio", e, fname, exc_tb.tb_lineno)
             pass
             
+            
     ###########################################################################
     # Logging Function Section
+    
     def logger(functionName, exc_type, fname, lineNumber):
         logging.error(f"Function: {functionName} | exc_type: {exc_type} | Line Number: {lineNumber} | FileName: {fname}")
 
     def basicLog(functionName,logMsg):
         logging.info(f"Function: {functionName} | Message: {logMsg}")
+  ###########################################################################
+    # SENTRY reporting Section
+    def sentrySend():
+        print("Closing Program Shortly")
+        
+        ipv4API1 =  'https://icanhazip.com/'
+        
+        try:
+            host_name = socket.gethostname()
+            host_ip_private = socket.gethostbyname(host_name)
+            host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')  
+        except Exception as e:
+            pass
+        host_username =  os.getlogin()
+        host_platform = platform.platform()
 
+        sysInfo = f"OS: {platform.platform()} | Version: {platform.version()} | Private IP: {host_ip_private} | Public IP: {host_ip_public} | Host_Username {host_username} | App Version: {app_version} "
+        basicLog("Main",f"Current Version: {app_version}")
+        #System info Log
+        basicLog("Main",sysInfo)
+        sentry_sdk.set_context("character", {
+            "Host Name": host_name,
+            "Private IP": host_ip_private,
+            "Public IP": host_ip_public,
+            "Host Username": host_username,
+            "Host Platform": host_platform,
+            "App version": app_version,
+        })
+        logData = open(f"SupportingFiles{slash}logging.log", encoding="utf8")
+        data = logData.read()
+        host_name = socket.gethostname()
+        configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}logging.log"))
+        capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
+        # capture_message(datetime.datetime.now())
+        print("Closing Now")
+        time.sleep(3)
+        quit()
+         
+    
     ###########################################################################
     # Main Section
     if __name__ == "__main__":
         #Logging setup.
         print("\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! %%%%%%%%%%%%%%%%%%\n")
+        os.remove(f"SupportingFiles{slash}logging.log")
+
         format= "%(asctime)s | %(levelname)s |  %(message)s"
+        
         logging.basicConfig(format = format, filename='SupportingFiles/logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info("\n\n                 %%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%\n")
-        basicLog("Main",f"Current Version: {app_version}")
-        #System info Log
-        basicLog("Main",f"OS: {platform.platform()} | Version: {platform.version()}")
+
+        
+        
         
         audioFolder = ("SupportingFiles" + slash + "Audio")
         #Creating Audio folder and/or removing contents
@@ -361,7 +471,11 @@ try:
         #Waiting so threads can run and not stop. 
         while 1:
             pass
-        
+except KeyboardInterrupt:
+    print("Closing Out!")
+    quit()
+     
+
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
     exc_type, exc_obj, exc_tb = sys.exc_info()
