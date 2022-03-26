@@ -253,7 +253,7 @@ try:
         while specificAlarm < numOfAlarms:
            
             try:
-                time.sleep(1.5)
+                time.sleep(1)
                # print(alarmMsgDict[specificAlarm])
                 basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm]}")
                 #print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
@@ -268,6 +268,7 @@ try:
                 _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], numAlarm ) )
                 print(f"Alarm: {specificAlarm + 1} / {numOfAlarms} --- {alarmMsgDict[specificAlarm]}")
                 specificAlarm+= 1
+                numAlarm+=1
                 
             except Exception as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -313,12 +314,12 @@ try:
             if time_diff > -100 and time_diff < 60:
                 #Put this back:  randInt = random.randint(10,50)
                 randInt = random.randint(10, 50)
-                numAlarm+=1
+                #numAlarm+=1
                 time_diff = randInt
             elif time_diff < -100:
                 print(f"-----ALARM PASSED-----\n")
                 basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
-                numAlarm +=1
+                #numAlarm +=1
                 
                 exit()
            # else:
