@@ -130,7 +130,7 @@ try:
             app_version_pull = float(r_new[0])
             update_link_pull = r_new[1]
             outdated_by = (float(app_version_pull))-(float(app_version))
-        
+            basicLog("checkforUpdate", f"new version: {app_version_pull} | Udpate Link: {update_link_pull} | Outdated by: {outdated_by} ")
             #Chekcing if new version is higher then updating. 
             if app_version_pull > app_version:
                 if "Force_Update" in update_link_pull:
@@ -139,7 +139,7 @@ try:
                         #Downloading UpdaterFile
                         r = requests.get(updaterLink, allow_redirects=True)
                         #Writing new update to Updater.py file
-                        with open(f"Updater.py", 'w') as writeFile:
+                        with open(f"SupportingFiles\\Updater.py", 'w') as writeFile:
                             writeFile.write(r.text)
                             basicLog("checkForUpdate",f"Update Complete")  
                     except Exception as e:
@@ -531,7 +531,7 @@ try:
                 'Host machine Public ip'    :   host_ip_public,
                 'Host Username: '           :   host_username,
                 'Host Platform: '           :   host_platform,
-                'Updater Link'              :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/Updater.py",
+                'Updater Link'              :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py",
                 'Update File'               :   "SupportingFiles\\Updater.py",
                 'Update File Text'          :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt",
             }
