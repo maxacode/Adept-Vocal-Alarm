@@ -13,7 +13,7 @@ mainName = 'Main.exe'
 import shutil
  #Renaming old file to _Old Might need a thread since the file is running live. 
 os.rename(mainName,"Main_Old.exe")
-basicLog("updater.py",f"Delete Complete - Moving on now Moving on now Moving on nowMoving on now!!")    
+basicLog("updater.py",f"Delete Complete!")    
 
  
 #Downloading new version

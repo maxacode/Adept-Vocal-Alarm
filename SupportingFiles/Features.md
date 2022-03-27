@@ -4,7 +4,7 @@
 - Config file with mappings of Letters to Words 
 
 # TODO:
-
+- Updater does not open new file after completion. 
 - <span style="color:red"> send logs if C&C asks for it.</span>.
 
 # Later Release:
