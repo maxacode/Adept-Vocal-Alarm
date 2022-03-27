@@ -114,12 +114,14 @@ try:
 
     def checkForUpdate():
         #getting Version and URL update
+        basicLog("checkforUpdate", "Starting Updater")
 
         updaterLink = config.get('Ignore_Program_Config', 'updater link')
         updateFile = config.get('Ignore_Program_Config', 'update file')
         url = config.get('Ignore_Program_Config', 'update file text')
         
-         
+        basicLog("checkforUpdate", f"Updater Link: {updaterLink} | ")
+
         #Downloaind Update Info text file
         r = requests.get(url, allow_redirects=True)
         r_new = r.text.split('\n')
