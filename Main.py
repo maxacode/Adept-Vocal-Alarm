@@ -133,23 +133,25 @@ try:
             app_version_pull = float(r_new[0])
             update_link_pull = r_new[1]
             outdated_by = (float(app_version_pull))-(float(app_version))
+            forceUpdate = r_new[2]
+
             basicLog("checkforUpdate", f"new version: {app_version_pull} | Udpate Link: {update_link_pull} | Outdated by: {outdated_by} ")
             #Chekcing if new version is higher then updating. 
             if app_version_pull > app_version:
-                if "Force_Update" in update_link_pull:
-                    basicLog("checkForUpdate",f"Downloading Updater.py")    
-                    try:
-                        #Downloading UpdaterFile
-                        r = requests.get(updaterLink, allow_redirects=True)
-                        #Writing new update to Updater.py file
-                        with open(f"SupportingFiles\\Updater.py", 'w') as writeFile:
-                            writeFile.write(r.text)
-                            basicLog("checkForUpdate",f"Update Complete")  
-                    except Exception as e:
-                        exc_type, exc_obj, exc_tb = sys.exc_info()
-                        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                        logger("checkForUpdate", e, fname, exc_tb.tb_lineno) 
+                basicLog("checkForUpdate",f"Downloading Updater.py")    
+                try:
+                    #Downloading UpdaterFile
+                    r = requests.get(updaterLink, allow_redirects=True)
+                    #Writing new update to Updater.py file
+                    with open(f"SupportingFiles\\Updater.py", 'w') as writeFile:
+                        writeFile.write(r.text)
+                        basicLog("checkForUpdate",f"Update Complete")  
+                except Exception as e:
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                    logger("checkForUpdate", e, fname, exc_tb.tb_lineno)
 
+                if "True" in forceUpdate:
                     basicLog("checkForUpdate",f"Forcing Update")    
                     #Starting Updare file
                     exec(compile(open(updateFile).read(),updateFile,  'exec'))
