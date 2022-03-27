@@ -1,4 +1,6 @@
 ## Prepare file for update:
 1. Change var: "app_version" to version Number ex: 1.3
-2. Upload file into github/Updates named: Update_1.1_Force_Update.py - if Forced to update - if not then exclude: "Force_Update"
-3. Update in root: Update.txt to version number and new link/file name. 
+ - change sentry release  version as well.
+2. update update.txt to verison number and True/Fasle for force. 
+3. Build to Exe. 
+4. Push to Github. 

@@ -55,7 +55,7 @@ try:
     sentry_sdk.init(
     "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
     traces_sample_rate=1.0,
-    release = "Adept-Alarm@1.7",
+    release = "Adept-Alarm@1.9",
     )
  
     global sentryRun
