@@ -8,6 +8,7 @@ try:
     import platform
     #To downline files vai HTTP
     import requests
+    import shutil
     import os
     #Logg all to file
     import logging

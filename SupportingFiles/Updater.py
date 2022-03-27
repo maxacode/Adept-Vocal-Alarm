@@ -8,8 +8,8 @@ import requests
 import time
 #basicLog("updater.py",f"Starting Update")    
 import sys
-mainName = 'Main.py'
-
+mainName = 'Main.exe'
+import shutil
  #Renaming old file to _Old Might need a thread since the file is running live. 
 #os.rename(mainName,"Main_Old.py")
 basicLog("updater.py",f"Rename Complete")    
@@ -19,9 +19,12 @@ basicLog("updater.py",f"Rename Complete")
 try:
     
      #Downloading new update
-    r = requests.get(update_link_pull, allow_redirects=True)
+  #  r = requests.get(update_link_pull, allow_redirects=True)
     #Writing new update to Main.py file
-    open(mainName, 'wb').write(r.content)
+  #  open(mainName, 'wb').write(r.content)
+    with requests.get(update_link_pull, stream=True) as r:
+        with open(mainName, 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
 
 except Exception as e:
     exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -29,14 +32,13 @@ except Exception as e:
     print(e)
     logger("readFile", e, fname, exc_tb.tb_lineno) 
 
-print("Update Complete - run 'Main.py' Again!")
-time.sleep(10)
+time.sleep(5)
 try:
-    basicLog("updater.py",f"New Main with Python")
-    os.system(f"python {mainName}")
+    basicLog("updater.py",f"running new Main.exe")
+    os.system(mainName)
 
 except:
-    basicLog("updater.py",f"New Main with Python3 :")
+    basicLog("updater.py",f"Failed running new Main.exe | Telling user to run")
 
-    os.system(f"python3 {mainName}")
+    print("Update Complete - run 'Main.exe' Again!")
 
