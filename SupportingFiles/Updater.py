@@ -13,7 +13,7 @@ os.remove(mainName)
 import shutil
  #Renaming old file to _Old Might need a thread since the file is running live. 
 #os.rename(mainName,"Main_Old.py")
-basicLog("updater.py",f"Rename Complete")    
+basicLog("updater.py",f"Delete Complete")    
 
  
 #Downloading new version
