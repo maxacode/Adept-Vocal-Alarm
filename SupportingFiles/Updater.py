@@ -35,6 +35,7 @@ except Exception as e:
 
 time.sleep(5)
 try:
+    print("Opening File -  Open MAIN if nothing happens")
     basicLog("updater.py",f"running new Main.exe")
     os.system(mainName)
 

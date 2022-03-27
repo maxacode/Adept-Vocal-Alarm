@@ -552,7 +552,7 @@ try:
     if __name__ == "__main__":
         #Logging setup.
         #print(os.getcwd())
-        print("\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! %%%%%%%%%%%%%%%%%%\n")
+        print(f"\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! v:{app_version} %%%%%%%%%%%%%%%%%%\n\n Initilizing - please wait a few seconds \n\n")
         audioFolder = ("SupportingFiles" + slash + "Audio")
         #Creating Audio folder and/or removing contents
         try:
