@@ -68,7 +68,7 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 1.7
+    app_version = 1.9
 
     #Min before time to ring alarm
     alarmBefore = 1
@@ -576,7 +576,7 @@ try:
         format= "%(asctime)s | %(levelname)s |  %(message)s"
         
         logging.basicConfig(format = format, filename='SupportingFiles\logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
-        logging.info("\n\n                 %%%%%%%%%%%%%%%%%% Main Program start %%%%%%%%%%%%%%%%%%\n")
+        logging.info(f"\n\n                 %%%%%%%%%%%%%%%%%% Main Program start {app_version}%%%%%%%%%%%%%%%%%%\n")
 
         
         

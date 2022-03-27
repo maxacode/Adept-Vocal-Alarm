@@ -6,7 +6,7 @@
 
 ## Smart alarm that will go off X amount of time before and voice the Message.
 
-# Version 1.7
+# Version 1.9
 # Steps:
 1. Ensure todays Date '3-11.csv' is in the SAME directory. 
 2. Change 'Config.ini' to any mappings you want. Ensure the format is retained. 
