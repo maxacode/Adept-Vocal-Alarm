@@ -53,9 +53,12 @@ try:
 
     sentry_sdk.init(
     "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
-    traces_sample_rate=1.0
+    traces_sample_rate=1.0,
+    release = "Adept-Alarm@1.7",
     )
  
+    global sentryRun
+    sentryRun = False
 
     #Refrences:
     #https://docs.python-requests.org/en/latest/user/quickstart/#passing-parameters-in-urls
@@ -164,6 +167,7 @@ try:
     # ReadFile Section
     def readFile():
         alarmMsgDict = []
+        fileName = None
         basicLog("readFile","Starting Function - reading File")
         #Gettinf file name in directory:
         dateTime = str(datetime.datetime.now())
@@ -176,8 +180,8 @@ try:
                     print(f"Found the Alarms File: {x}\n")
                     break
             break
-
-        if exists(fileName):
+        print(fileName)
+        if fileName != None:
         #Reading file to extract alarms and text.
            
             #Reading Vars form Config.ini
@@ -407,48 +411,53 @@ try:
   ###########################################################################
     # SENTRY reporting Section
     def sentrySend():
-        print("Closing Program Shortly")
-        
-        ipv4API1 =  'https://icanhazip.com/'
-        
-        try:
-            host_name = socket.gethostname()
-            host_ip_private = socket.gethostbyname(host_name)
-            host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')  
-        except Exception as e:
-            pass
-        host_username =  os.getlogin()
-        host_platform = platform.platform()
+        global sentryRun
+        if sentryRun == False:
+            print("Closing Program Shortly")
+            
+            sentryRun = True
+            ipv4API1 =  'https://icanhazip.com/'
+            
+            try:
+                host_name = socket.gethostname()
+                host_ip_private = socket.gethostbyname(host_name)
+                host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')  
+            except Exception as e:
+                pass
+            host_username =  os.getlogin()
+            host_platform = platform.platform()
 
-        sysInfo = f"OS: {platform.platform()} | Version: {platform.version()} | Private IP: {host_ip_private} | Public IP: {host_ip_public} | Host_Username {host_username} | App Version: {app_version} "
-        basicLog("Main",f"Current Version: {app_version}")
-        #System info Log
-        basicLog("Main",sysInfo)
-        sentry_sdk.set_context("character", {
-            "Host Name": host_name,
-            "Private IP": host_ip_private,
-            "Public IP": host_ip_public,
-            "Host Username": host_username,
-            "Host Platform": host_platform,
-            "App version": app_version,
-        })
-        logData = open(f"SupportingFiles{slash}logging.log", encoding="utf8")
-        data = logData.read()
-        host_name = socket.gethostname()
-        configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}logging.log"))
-        capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
-        # capture_message(datetime.datetime.now())
-        print("Closing Now")
-        time.sleep(3)
-        quit()
+            sysInfo = f"OS: {platform.platform()} | Version: {platform.version()} | Private IP: {host_ip_private} | Public IP: {host_ip_public} | Host_Username {host_username} | App Version: {app_version} "
+            basicLog("Main",f"Current Version: {app_version}")
+            #System info Log
+            basicLog("Main",sysInfo)
+            sentry_sdk.set_context("character", {
+                "Host Name": host_name,
+                "Private IP": host_ip_private,
+                "Public IP": host_ip_public,
+                "Host Username": host_username,
+                "Host Platform": host_platform,
+                "App version": app_version,
+            })
+            logData = open(f"SupportingFiles{slash}logging.log", encoding="utf8")
+            data = logData.read()
+            host_name = socket.gethostname()
+            configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}logging.log"))
+            capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
+            # capture_message(datetime.datetime.now())
+            print("Closing Now")
+            time.sleep(3)
+            quit()
          
     
     ###########################################################################
     # Main Section
     if __name__ == "__main__":
         #Logging setup.
+        print(os.getcwd())
         print("\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! %%%%%%%%%%%%%%%%%%\n")
-        os.remove(f"SupportingFiles{slash}logging.log")
+        if exists(f"SupportingFiles{slash}logging.log"):
+            os.remove(f"SupportingFiles{slash}logging.log")
 
         format= "%(asctime)s | %(levelname)s |  %(message)s"
         
@@ -474,6 +483,7 @@ try:
             pass
 except KeyboardInterrupt:
     print("Closing Out!")
+    sentrySend()
     quit()
      
 
@@ -482,3 +492,4 @@ except Exception as e:
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     logger("Main Except", e, fname, exc_tb.tb_lineno)
+    input("\n \n Press enter to Exit!")
