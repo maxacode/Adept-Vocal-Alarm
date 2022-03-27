@@ -9,10 +9,10 @@ import time
 #basicLog("updater.py",f"Starting Update")    
 import sys
 mainName = 'Main.exe'
-os.remove(mainName)
+#os.remove(mainName)
 import shutil
  #Renaming old file to _Old Might need a thread since the file is running live. 
-#os.rename(mainName,"Main_Old.py")
+os.rename(mainName,"Main_Old.exe")
 basicLog("updater.py",f"Delete Complete")    
 
  

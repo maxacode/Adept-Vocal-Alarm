@@ -68,7 +68,7 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 1.8
+    app_version = 1.7
 
     #Min before time to ring alarm
     alarmBefore = 1
