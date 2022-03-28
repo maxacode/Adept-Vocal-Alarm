@@ -546,12 +546,16 @@ try:
             os.mkdir("SupportingFiles")
         except:
             pass
-        try:
-            os.mkdir(audioFolder)          
-        except:
-           # basicLog("Main", "Deleting Contents of Audio File and creating a new one. ")
+        
+        if exists(audioFolder):
             shutil.rmtree(audioFolder)
             os.mkdir(audioFolder)
+        else:
+            try:
+                os.mkdir(audioFolder)          
+            except:
+                pass
+
         if exists("config.ini"):
             pass
         else:
