@@ -38,11 +38,13 @@ except Exception as e:
     print(e)
     logger("readFile", e, fname, exc_tb.tb_lineno) 
 
-time.sleep(5)
+time.sleep(2)
 try:
+    path = os.getcwd()
+    fullPath = path + "\\" + mainName
     print("Opening File -  Open MAIN if nothing happens")
     basicLog("updater.py",f"running new Main.exe")
-    os.system(mainName)
+    os.system(fullPath)
 
 except:
     basicLog("updater.py",f"Failed running new Main.exe | Telling user to run")
