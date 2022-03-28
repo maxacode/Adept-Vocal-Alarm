@@ -55,7 +55,7 @@ try:
     sentry_sdk.init(
     "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
     traces_sample_rate=1.0,
-    release = "Adept-Alarm@1.9",
+    release = "Adept-Alarm@2.0",
     )
  
     global sentryRun
@@ -68,7 +68,7 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 1.9
+    app_version = 2.0
 
     #Min before time to ring alarm
     alarmBefore = 1
@@ -451,13 +451,11 @@ try:
             # capture_message(datetime.datetime.now())
             print("Closing Now")
             time.sleep(3)
-            exit()
+            sys.exit
          
    ###########################################################################
     # Def config File
     def configIni():
-
-
         #Default Values:
         ipv4API1 =  'https://icanhazip.com/'
         minBeforeAlarm = 5
@@ -467,17 +465,11 @@ try:
             host_ip_private = socket.gethostbyname(host_name)     
         except Exception as e:
             print(e)
-            
-
         host_username =  os.getlogin()
         host_platform = platform.platform()
 
         #Whre to save Config file 
-
         logDir = (r".")
-
-
-
         host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')
 
         #Init of config parser
@@ -489,8 +481,6 @@ try:
             #These are the default variables. they can be changed if user wants.
             config['DEFAULTS'] = {
                 'Minutes Before Time to Ring Alarm'         : minBeforeAlarm,
-                
-
             }
 
             #Config Parset for First_Column_Voice
@@ -509,7 +499,6 @@ try:
                 'DB' : 'Double Bottom'
             }
 
-
             #Config Parset for Second_Column_Voice
             config['Second_Column_Voice'] = {
                 'D'  :  'Doublewide',
@@ -518,14 +507,12 @@ try:
                 'SR' :  'Stop Run'
             }
 
-
             #Config Parset for Third_Column_Location
             config['Third_Column_Location'] = {
                 'C'   :    'China',
                 'L'   :    'London', 
                 'B'   :    'Both'
             }
-
 
             #Config Parset for System_Info
             config['Ignore_Program_Config'] = {
@@ -540,7 +527,6 @@ try:
                 'Update File'               :   "SupportingFiles\\Updater.py",
                 'Update File Text'          :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt",
             }
-
 
             with open(logDir + '\config.ini','w') as configfile:
                 config.write(configfile)
@@ -578,18 +564,6 @@ try:
         logging.basicConfig(format = format, filename='SupportingFiles\logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info(f"\n\n                 %%%%%%%%%%%%%%%%%% Main Program start {app_version}%%%%%%%%%%%%%%%%%%\n")
 
-        
-        
-        
-        
-       # try:
-           # if exists("SupportingFiles\Update.txt"):#
-             #   pass
-           # else:
-              #  with open("SupportingFiles\Update.#txt", "w") as UpdateTxt:
-                #    UpdateTxt.write(app_version)
-                    
-
         readConfigINI()
         #Waiting so threads can run and not stop. 
         while 1:
@@ -598,7 +572,6 @@ except KeyboardInterrupt:
     print("Closing Out!")
     sentrySend()
     exit()
-     
 
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
