@@ -95,19 +95,16 @@ try:
     def readConfigINI():
         global config
         config = ConfigParser()
+        basicLog("readConfigINI", f"Starting to reading of teh COnfig File - Line 98")
         #Remove after this goes public
        # os.chdir('adept-venv\Adept-Vocal-Alarm')
        # print(os.getcwd())
         config.read("config.ini")
-        
-        
+               
         #min before time before to ring alarm
         global minBeforeAlarm
         minBeforeAlarm = config.get('DEFAULTS', 'minutes before time to ring alarm')
         
-  
- 
-
         checkForUpdate()
 ###########################################################################
 # Update Section
@@ -445,13 +442,15 @@ try:
             })
             logData = open(f"SupportingFiles{slash}logging.log", encoding="utf8")
             data = logData.read()
+            logData.close()
             host_name = socket.gethostname()
             configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}logging.log"))
             capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
             # capture_message(datetime.datetime.now())
             print("Closing Now")
             time.sleep(3)
-            sys.exit
+        sys.exit
+        
          
    ###########################################################################
     # Def config File
@@ -546,7 +545,7 @@ try:
             os.mkdir("SupportingFiles")
         except:
             pass
-        
+
         if exists(audioFolder):
             shutil.rmtree(audioFolder)
             os.mkdir(audioFolder)
@@ -575,11 +574,12 @@ try:
 except KeyboardInterrupt:
     print("Closing Out!")
     sentrySend()
-    exit()
+    quit()
 
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
     logger("Main Except", e, fname, exc_tb.tb_lineno)
+    sentrySend()
     input("\n \n Press enter to Exit!")
