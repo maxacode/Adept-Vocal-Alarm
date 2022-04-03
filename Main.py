@@ -2,6 +2,10 @@
 #Smart alarm that will go off X amount of time before and voice the Message
 #!/usr/bin/python
 
+from cgitb import handler
+from re import fullmatch
+
+
 try:
     
     #from distutils.log import error
@@ -55,7 +59,7 @@ try:
     sentry_sdk.init(
     "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
     traces_sample_rate=1.0,
-    release = "Adept-Alarm@2.1",
+    release = "Adept-Alarm@2.2",
     )
  
     global sentryRun
@@ -68,10 +72,10 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 2.1
+    app_version = 2.2
 
     #Min before time to ring alarm
-    alarmBefore = 1
+     
     global specificAlarm
     specificAlarm = 0
  
@@ -95,7 +99,7 @@ try:
     def readConfigINI():
         global config
         config = ConfigParser()
-        basicLog("readConfigINI", f"Starting to reading of teh COnfig File - Line 98")
+        basicLog("readConfigINI", "Starting to reading of teh COnfig File - Line 98")
         #Remove after this goes public
        # os.chdir('adept-venv\Adept-Vocal-Alarm')
        # print(os.getcwd())
@@ -112,7 +116,7 @@ try:
     def checkForUpdate():
         #getting Version and URL update
         basicLog("checkforUpdate", "Starting Updater")
-
+       
         updaterLink = config.get('Ignore_Program_Config', 'updater link')
         updateFile = config.get('Ignore_Program_Config', 'update file')
         url = config.get('Ignore_Program_Config', 'update file text')
@@ -147,10 +151,12 @@ try:
                     exc_type, exc_obj, exc_tb = sys.exc_info()
                     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                     logger("checkForUpdate", e, fname, exc_tb.tb_lineno)
+                    #logging.flush()
 
                 if "True" in forceUpdate:
                     basicLog("checkForUpdate",f"Forcing Update")    
                     #Starting Updare file
+                    
                     exec(compile(open(updateFile).read(),updateFile,  'exec'))
                     exit()
 
@@ -180,6 +186,8 @@ try:
                 if dateToday[1:2] in x and dateToday[3:5] in x:
                     fileName = x
                     print(f"Found the Alarms File: {x}\n")
+                    basicLog("readFile", f"Found the Alarms File: {x}\n")
+
                     break
             break
        # print(fileName)
@@ -194,6 +202,7 @@ try:
             secondColumn = 'Second_Column_Voice'
             thirdColum = 'Third_Column_Location'
             fullMsg = ''
+            basicLog("readFile", "Opening CSV File")
             file = open(fileName)
             csvreader = csv.reader(file)
 
@@ -209,6 +218,8 @@ try:
                 #Checking format of Time:
                     alarm0 = alarm[0]
                  #   print(alarm0)
+                    basicLog("readFile", "Changing time based if it has : or no")
+
                     if ":" not in alarm0:
                       #  print(203)
                         if len(alarm0) == 3:
@@ -219,7 +230,30 @@ try:
                         alarm0Done = alarm0
                     #print(alarm0Done)
                 #Full Message of this Alarm
-                    fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                    basicLog("readFile", "Compiling full msg")
+
+                    try:
+                      #  print("1st") # print(config.get(firstColumn, (alarm[1].lower())))
+
+                        firstMsg = config.get(firstColumn, (alarm[1].lower()))
+                    except:
+                        firstMsg == "-"
+                    try:
+                       # print("2nd")
+                        secondMsg =  config.get(secondColumn, alarm[2].lower())
+                    except:
+                        secondMsg = "-"
+                    try:
+                       # print("Third")
+                        thirdMsg = config.get( thirdColum, alarm[3].lower())
+                    except:
+                        thirdMsg = "-"
+                    
+                   # print("Full Msg")
+                    fullMsg = alarm0Done, firstMsg, secondMsg, thirdMsg
+                  #  print(fullMsg)
+                    basicLog("readFile", "Done with full msg")
+
                     alarmMsgDict.append(fullMsg)
  
                 except Exception as e:
@@ -241,6 +275,8 @@ try:
             file.close()
         else:
             print(f"\n !!!!! CAUTION !!!!!!!!!!!!!! \n Can Not Find a file Named: {dateToday} rename your CSV file to this.")
+            input("Press Enter to Run Again")
+            readFile()
          # !!!!!!! To alwasy go off in 10 seconds from now. 
  
            # curr_time = str(datetime.datetime.now())
@@ -299,7 +335,7 @@ try:
                         
             # Converting the alarm time to seconds
             #print(f"286 {alarmSplit}")
-            time_sec = int(alarmSplit[0])*3600 + (int(alarmSplit[1])-alarmBefore)*60
+            time_sec = int(alarmSplit[0])*3600 + (int(alarmSplit[1]))*60
             #Subtracting global minBeforeAlarm
             time_sec -= (int(minBeforeAlarm)*60)
             
@@ -314,24 +350,26 @@ try:
            #
             #print(time_diff_show)
             basicLog("alarmTimer",time_diff_show)
-            
+            print(f"FIRST: Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
+
             #If time difference is negative, it means the alarm is passed by -x H/M/Seconds.
             #Put this back:             if time_diff > -100 and time_diff < 60:
-            if time_diff > -100 and time_diff < 60:
+            if time_diff > -10: #and time_diff < 50:
                 #Put this back:  randInt = random.randint(10,50)
-                randInt = random.randint(10, 50)
+                randInt = random.randint(5, 20)
                 #numAlarm+=1
-                time_diff = randInt
+                time_diff = time_diff
             elif time_diff < -100:
                 print(f"-----ALARM PASSED-----\n")
                 basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
                 #numAlarm +=1
+                exit()
                 
-           # else:
-            #    print(f"-----ALARM PASSED-----\n")
-              #  basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
+            else:
+                print(f"-----ALARM PASSED-2----\n")
+                basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
              #   # before it was: exit() 
-                #exit()
+                exit()
 
             # Displaying the time left for alarm
             print(f"-----Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
@@ -383,8 +421,8 @@ try:
                 engineTTS.save(msgFull)
             #Playing the file. 
             playsound(msgFull)
-            print(f"Downloaded and Played Audio: {msgFull} - ")
-            basicLog("playAudio", f"Downloaded and Played Audio: {msgFull}")
+            print(f"DONE: {msg} - File Local: {msgFull} - \n Did Alarm: {numAlarm+1}/{numOfAlarms}\n")
+            basicLog("playAudio", f"DONE: {msg} - File Local: {msgFull} - ")
             basicLog("PlayAudio", f"Did Alarm: {numAlarm+1}/{numOfAlarms}")
             if (numAlarm+1) == (numOfAlarms):
                 basicLog("PlayAudio", f"Did all alarms! {numAlarm+1}/{numOfAlarms}")
@@ -412,6 +450,8 @@ try:
   ###########################################################################
     # SENTRY reporting Section
     def sentrySend():
+        print("Execution Time In Seconds: ", str(time.time() - t1))
+        basicLog("Sentry", f"Execution Time In Seconds: {str(time.time() - t1)}")
         global sentryRun
         if sentryRun == False:
             print("Closing Program Shortly")
@@ -449,7 +489,7 @@ try:
             # capture_message(datetime.datetime.now())
             print("Closing Now")
             time.sleep(3)
-        sys.exit
+        sys.exit()
         
          
    ###########################################################################
@@ -538,6 +578,10 @@ try:
         #Logging setup.
         #print(os.getcwd())
         print(f"\n\n%%%%%%%%%%%%%%%%%% Starting Adept Vocal Alarm Now!! v:{app_version} %%%%%%%%%%%%%%%%%%\n\n Initilizing - please wait a few seconds \n\n")
+        #Time usage:
+        t1 = time.time()
+        #Memory usage:
+       # print("Memory (Before: {}Mb".format(mem_p))
         audioFolder = ("SupportingFiles" + slash + "Audio")
         #Creating Audio folder and/or removing contents
         try:
@@ -580,6 +624,9 @@ except Exception as e:
     print(f"Main Except: \n\n{e}\n")
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-    logger("Main Except", e, fname, exc_tb.tb_lineno)
+    try:
+        logger("Main Except", e, fname, exc_tb.tb_lineno)
+    except:
+        print("Main Exept - No logger Configured.")
     sentrySend()
     input("\n \n Press enter to Exit!")
