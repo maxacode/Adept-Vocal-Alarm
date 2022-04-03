@@ -1,0 +1,90 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+Main.dist/
+Main.onefile-build/
+Main.dist/
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Binaries for programs and plugins
+#*.exe
+#*.exe~
+*.dll
+*.so
+*.dylib
+# Test binary, built with `go test -c`
+
+# Dependency directories (remove the comment below to include it)
+vendor/ 
+
+#Audio file. 
+Audio/
+
+.dccache
+bin/
+include/
+lib/
+pyvenv.cfg
+
+
+#Maybe Ignore:
+# tests/
+#testingFunctionality/
+#*.log
+#testing.py
+#test.py
+#logging.log
+#Мain_Old.py
+#*.test
+#.gitignore
