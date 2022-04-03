@@ -497,13 +497,15 @@ try:
             configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}{logFile}"))
             capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
             # capture_message(datetime.datetime.now())
-            print("Closing Now")
-            time.sleep(1)
+            #print("Closing Now")
+            #time.sleep(1)
+        try:
+         #   print("sys.exit()")
             sys.exit()
+        except:
+            print("You May now Close the Program")
             exit()
-            quit()
-        sys.exit()
-        
+
          
    ###########################################################################
     # Def config File
