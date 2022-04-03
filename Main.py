@@ -3,9 +3,12 @@
 #!/usr/bin/python
 
 from cgitb import handler
+from ctypes import WinError
 from re import fullmatch
 
+from pip import main
 
+logFile = "logging.log"
 try:
     
     #from distutils.log import error
@@ -295,7 +298,7 @@ try:
         while specificAlarm < numOfAlarms:
            
             try:
-                time.sleep(1)
+                time.sleep(.75)
                # print(alarmMsgDict[specificAlarm])
                 basicLog("readFile",f"Starting Alarm: {alarmMsgDict[specificAlarm]}")
                 #print(f"\n\n============================ \n \n-----Starting alarm for: {alarmMsgDict[specificAlarm]}")
@@ -308,7 +311,7 @@ try:
                 #     time.sleep(10)
                 numAlarm = specificAlarm
                 _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], numAlarm ) )
-                print(f"Alarm: {specificAlarm + 1} / {numOfAlarms} --- {alarmMsgDict[specificAlarm]}")
+                print(f"Alarm: {specificAlarm + 1} / {numOfAlarms} = {alarmMsgDict[specificAlarm]}")
                 specificAlarm+= 1
                 numAlarm+=1
                 
@@ -350,19 +353,25 @@ try:
            #
             #print(time_diff_show)
             basicLog("alarmTimer",time_diff_show)
-            print(f"FIRST: Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
+            #print(f"FIRST: Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
 
             #If time difference is negative, it means the alarm is passed by -x H/M/Seconds.
             #Put this back:             if time_diff > -100 and time_diff < 60:
             if time_diff > -10: #and time_diff < 50:
                 #Put this back:  randInt = random.randint(10,50)
-                randInt = random.randint(5, 20)
+                randInt = random.randint(1, 30)
                 #numAlarm+=1
-                time_diff = time_diff
+                time_diff = time_diff + randInt
             elif time_diff < -100:
                 print(f"-----ALARM PASSED-----\n")
                 basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
                 #numAlarm +=1
+                if (numAlarm+1) == (numOfAlarms):
+                    basicLog("PlayAudio", f"Did all alarms! {numAlarm+1}/{numOfAlarms}")
+                    print("Done with All Alarms - Closing in a few seconds..")
+                    #if time_diff > 0:
+                    time.sleep(2)
+                    sentrySend()
                 exit()
                 
             else:
@@ -372,7 +381,7 @@ try:
                 exit()
 
             # Displaying the time left for alarm
-            print(f"-----Time left for alarm {alarm} is %s\n" % datetime.timedelta(seconds=time_diff))
+            print(f"Alarm Will Go Off in: %s\n" % datetime.timedelta(seconds=time_diff))
             basicLog("alarmTimer", f"Time left for alarm is {alarm} | {msg} | {datetime.timedelta(seconds=time_diff)}")
             
             # Sleep until the time at which alarm rings
@@ -421,14 +430,14 @@ try:
                 engineTTS.save(msgFull)
             #Playing the file. 
             playsound(msgFull)
-            print(f"DONE: {msg} - File Local: {msgFull} - \n Did Alarm: {numAlarm+1}/{numOfAlarms}\n")
+            print(f"Did Alarm: {numAlarm+1}/{numOfAlarms} | Time: {alarm}\n")
             basicLog("playAudio", f"DONE: {msg} - File Local: {msgFull} - ")
             basicLog("PlayAudio", f"Did Alarm: {numAlarm+1}/{numOfAlarms}")
             if (numAlarm+1) == (numOfAlarms):
                 basicLog("PlayAudio", f"Did all alarms! {numAlarm+1}/{numOfAlarms}")
-                
+                print("Done with All Alarms - Closing in a few seconds..")
                 if time_diff > 0:
-                    time.sleep(10)
+                    time.sleep(2)
                     sentrySend()
                 #print("Done with all alarms 358")
 
@@ -450,10 +459,11 @@ try:
   ###########################################################################
     # SENTRY reporting Section
     def sentrySend():
-        print("Execution Time In Seconds: ", str(time.time() - t1))
-        basicLog("Sentry", f"Execution Time In Seconds: {str(time.time() - t1)}")
+
         global sentryRun
         if sentryRun == False:
+            print("Execution Time In Seconds: ", str(time.time() - t1))
+            basicLog("Sentry", f"Execution Time In Seconds: {str(time.time() - t1)}")
             print("Closing Program Shortly")
             
             sentryRun = True
@@ -480,15 +490,18 @@ try:
                 "Host Platform": host_platform,
                 "App version": app_version,
             })
-            logData = open(f"SupportingFiles{slash}logging.log", encoding="utf8")
+            logData = open(f"SupportingFiles{slash}{logFile}", encoding="utf8")
             data = logData.read()
             logData.close()
             host_name = socket.gethostname()
-            configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}logging.log"))
+            configure_scope(lambda scope: scope.add_attachment(path=f"SupportingFiles{slash}{logFile}"))
             capture_exception(AttributeError(" ## " + host_name + " | " + str(datetime.datetime.now())))
             # capture_message(datetime.datetime.now())
             print("Closing Now")
-            time.sleep(3)
+            time.sleep(1)
+            sys.exit()
+            exit()
+            quit()
         sys.exit()
         
          
@@ -603,12 +616,15 @@ try:
             pass
         else:
             configIni()
-        if exists(f"SupportingFiles{slash}logging.log"):
-            os.remove(f"SupportingFiles{slash}logging.log")
+        try:
+            if exists(f"SupportingFiles{slash}{logFile}"):
+                os.remove(f"SupportingFiles{slash}{logFile}")
+        except:
+            logFile = "logging2.log"
 
         format= "%(asctime)s | %(levelname)s |  %(message)s"
         
-        logging.basicConfig(format = format, filename='SupportingFiles\logging.log', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
+        logging.basicConfig(format = format, filename=f'SupportingFiles\{logFile}', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info(f"\n\n                 %%%%%%%%%%%%%%%%%% Main Program start {app_version}%%%%%%%%%%%%%%%%%%\n")
 
         readConfigINI()
@@ -618,7 +634,6 @@ try:
 except KeyboardInterrupt:
     print("Closing Out!")
     sentrySend()
-    quit()
 
 except Exception as e:
     print(f"Main Except: \n\n{e}\n")
@@ -627,6 +642,7 @@ except Exception as e:
     try:
         logger("Main Except", e, fname, exc_tb.tb_lineno)
     except:
-        print("Main Exept - No logger Configured.")
-    sentrySend()
+        print("Main Except: Notifiy Developer!")
+    #sentrySend()
     input("\n \n Press enter to Exit!")
+    sys.exit()

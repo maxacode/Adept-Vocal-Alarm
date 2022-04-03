@@ -1,0 +1,53 @@
+04/03/2022 10:04:25 AM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 10:04:25 AM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 10:04:25 AM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 10:04:25 AM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py | 
+04/03/2022 10:04:25 AM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 10:04:25 AM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 10:04:25 AM | INFO |  Function: checkforUpdate | Message: new version: 2.1 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: -0.10000000000000009 
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 10:04:25 AM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 10:04:25 AM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 10:04:25 AM | INFO |  Function: alarmTimer | Message: Time Now: 36265 - Alarm Time: 35340 
+ Alarm in: Seconds: -925 | Minutes: -15 | Hours: 0 for alarm: 9:54
+04/03/2022 10:04:25 AM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 10:04:26 AM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 10:04:26 AM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 10:04:26 AM | INFO |  Function: alarmTimer | Message: Time Now: 36266 - Alarm Time: 35340 
+ Alarm in: Seconds: -926 | Minutes: -15 | Hours: 0 for alarm: 9:54
+04/03/2022 10:04:26 AM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 10:04:27 AM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 10:04:27 AM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 10:04:27 AM | INFO |  Function: alarmTimer | Message: Time Now: 36267 - Alarm Time: 35400 
+ Alarm in: Seconds: -867 | Minutes: -14 | Hours: 0 for alarm: 9:55
+04/03/2022 10:04:27 AM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 10:04:28 AM | INFO |  Function: readFile | Message: Starting Alarm: ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 10:04:28 AM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 10:04:28 AM | INFO |  Function: alarmTimer | Message: Time Now: 36268 - Alarm Time: 35940 
+ Alarm in: Seconds: -328 | Minutes: -5 | Hours: 0 for alarm: 10:04
+04/03/2022 10:04:28 AM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 10:04 ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 10:04:28 AM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 10:04:30 AM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 5.302239894866943
+04/03/2022 10:04:30 AM | INFO |  Function: Main | Message: Current Version: 2.2
+04/03/2022 10:04:30 AM | INFO |  Function: Main | Message: OS: Windows-10-10.0.19042-SP0 | Version: 10.0.19042 | Private IP: 100.110.227.78 | Public IP: 71.215.127.70
+ | Host_Username Tech-Power | App Version: 2.2 
+04/03/2022 10:04:55 AM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 10:04:55 AM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/envelope/ HTTP/1.1" 200 41
