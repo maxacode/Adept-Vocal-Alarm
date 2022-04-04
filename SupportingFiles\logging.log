@@ -1,0 +1,404 @@
+04/03/2022 12:07:14 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:07:14 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:07:14 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:07:14 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:07:14 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:07:15 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:07:15 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:07:15 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:07:15 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:07:15 PM | INFO |  Function: alarmTimer | Message: Time Now: 43635 - Alarm Time: 35340 
+ Alarm in: Seconds: -8295 | Minutes: -138 | Hours: -2 for alarm: 9:54
+04/03/2022 12:07:15 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:07:16 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:07:16 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:07:16 PM | INFO |  Function: alarmTimer | Message: Time Now: 43636 - Alarm Time: 35340 
+ Alarm in: Seconds: -8296 | Minutes: -138 | Hours: -2 for alarm: 9:54
+04/03/2022 12:07:16 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:07:17 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:07:17 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:07:17 PM | INFO |  Function: alarmTimer | Message: Time Now: 43637 - Alarm Time: 35400 
+ Alarm in: Seconds: -8237 | Minutes: -137 | Hours: -2 for alarm: 9:55
+04/03/2022 12:07:17 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:07:18 PM | INFO |  Function: readFile | Message: Starting Alarm: ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:07:18 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:07:18 PM | INFO |  Function: alarmTimer | Message: Time Now: 43638 - Alarm Time: 35940 
+ Alarm in: Seconds: -7698 | Minutes: -128 | Hours: -2 for alarm: 10:04
+04/03/2022 12:07:18 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 10:04 ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:07:18 PM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 12:07:20 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 5.271120071411133
+04/03/2022 12:07:20 PM | ERROR |  Function: alarmTimer | exc_type: local variable 'host_ip_private' referenced before assignment | Line Number: 375 | FileName: Main.py
+04/03/2022 12:07:20 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:07:20 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 12:13:13 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:13:13 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:13:13 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:13:13 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:13:13 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:13:13 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:13:13 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:13 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:14 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: Time Now: 43994 - Alarm Time: 35340 
+ Alarm in: Seconds: -8654 | Minutes: -144 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:14 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: Time Now: 43994 - Alarm Time: 35340 
+ Alarm in: Seconds: -8654 | Minutes: -144 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:14 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:15 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:15 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:15 PM | INFO |  Function: alarmTimer | Message: Time Now: 43995 - Alarm Time: 35400 
+ Alarm in: Seconds: -8595 | Minutes: -143 | Hours: -2 for alarm: 9:55
+04/03/2022 12:13:15 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:16 PM | INFO |  Function: readFile | Message: Starting Alarm: ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:13:16 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:16 PM | INFO |  Function: alarmTimer | Message: Time Now: 43996 - Alarm Time: 35940 
+ Alarm in: Seconds: -8056 | Minutes: -134 | Hours: -2 for alarm: 10:04
+04/03/2022 12:13:16 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 10:04 ('10:04', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:13:16 PM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 12:13:16 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 3.364610195159912
+04/03/2022 12:13:16 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:13:16 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 12:13:32 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:13:32 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:13:32 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:13:32 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:13:32 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:13:32 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:13:32 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:32 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:33 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: Time Now: 44013 - Alarm Time: 35340 
+ Alarm in: Seconds: -8673 | Minutes: -145 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:33 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: Time Now: 44013 - Alarm Time: 35340 
+ Alarm in: Seconds: -8673 | Minutes: -145 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:33 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:34 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:34 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:34 PM | INFO |  Function: alarmTimer | Message: Time Now: 44014 - Alarm Time: 35400 
+ Alarm in: Seconds: -8614 | Minutes: -144 | Hours: -2 for alarm: 9:55
+04/03/2022 12:13:34 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:35 PM | INFO |  Function: readFile | Message: Starting Alarm: ('12:18', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:13:35 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:35 PM | INFO |  Function: alarmTimer | Message: Time Now: 44015 - Alarm Time: 43980 
+ Alarm in: Seconds: -35 | Minutes: -1 | Hours: 0 for alarm: 12:18
+04/03/2022 12:13:35 PM | INFO |  Function: alarmTimer | Message: ------ALARM PASSED - Else----12:18 ('12:18', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:13:36 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 4.098743200302124
+04/03/2022 12:13:36 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:13:36 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 12:13:45 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:13:45 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:13:45 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:13:45 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:13:45 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:13:45 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:13:45 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:13:45 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:13:46 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:46 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:46 PM | INFO |  Function: alarmTimer | Message: Time Now: 44026 - Alarm Time: 35340 
+ Alarm in: Seconds: -8686 | Minutes: -145 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:46 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:13:47 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: Time Now: 44027 - Alarm Time: 35340 
+ Alarm in: Seconds: -8687 | Minutes: -145 | Hours: -2 for alarm: 9:54
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:13:47 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: Time Now: 44027 - Alarm Time: 35400 
+ Alarm in: Seconds: -8627 | Minutes: -144 | Hours: -2 for alarm: 9:55
+04/03/2022 12:13:47 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:13:48 PM | INFO |  Function: readFile | Message: Starting Alarm: ('12:19', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:13:48 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:13:48 PM | INFO |  Function: alarmTimer | Message: Time Now: 44028 - Alarm Time: 44040 
+ Alarm in: Seconds: 12 | Minutes: 0 | Hours: 0 for alarm: 12:19
+04/03/2022 12:13:48 PM | INFO |  Function: alarmTimer | Message: Time left for alarm is 12:19 | ('12:19', 'Hank Sell', 'Doublewide', 'London') | 0:00:34
+04/03/2022 12:14:22 PM | INFO |  Function: playAudio | Message: Starting playAudio Function
+04/03/2022 12:14:22 PM | INFO |  Function: playAudio | Message: Downloading Audio: SupportingFiles/Audio/3020.mp3
+04/03/2022 12:14:22 PM | DEBUG |  text: ('12:19', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:14:22 PM | DEBUG |  tld: co.uk
+04/03/2022 12:14:22 PM | DEBUG |  lang: en
+04/03/2022 12:14:22 PM | DEBUG |  slow: False
+04/03/2022 12:14:22 PM | DEBUG |  lang_check: True
+04/03/2022 12:14:22 PM | DEBUG |  pre_processor_funcs: [<function tone_marks at 0x101a07490>, <function end_of_line at 0x101a07c70>, <function abbreviations at 0x101a07d00>, <function word_sub at 0x101a07d90>]
+04/03/2022 12:14:22 PM | DEBUG |  tokenizer_func: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|\\)|¿|\\[|，|،|¡|—|‥|;|。|、|\\(|\\\n|：|…|\\]', re.IGNORECASE) from: [<function tone_marks at 0x101a07f40>, <function period_comma at 0x101a18040>, <function colon at 0x101a180d0>, <function other_punctuation at 0x101a18160>]>
+04/03/2022 12:14:22 PM | DEBUG |  langs: {'af': 'Afrikaans', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bs': 'Bosnian', 'ca': 'Catalan', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek', 'en': 'English', 'eo': 'Esperanto', 'es': 'Spanish', 'et': 'Estonian', 'fi': 'Finnish', 'fr': 'French', 'gu': 'Gujarati', 'hi': 'Hindi', 'hr': 'Croatian', 'hu': 'Hungarian', 'hy': 'Armenian', 'id': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'ja': 'Japanese', 'jw': 'Javanese', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'la': 'Latin', 'lv': 'Latvian', 'mk': 'Macedonian', 'ml': 'Malayalam', 'mr': 'Marathi', 'my': 'Myanmar (Burmese)', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'pl': 'Polish', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'si': 'Sinhala', 'sk': 'Slovak', 'sq': 'Albanian', 'sr': 'Serbian', 'su': 'Sundanese', 'sv': 'Swedish', 'sw': 'Swahili', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Filipino', 'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'zh-CN': 'Chinese', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'}
+04/03/2022 12:14:22 PM | DEBUG |  pre-processing: <function tone_marks at 0x101a07490>
+04/03/2022 12:14:22 PM | DEBUG |  pre-processing: <function end_of_line at 0x101a07c70>
+04/03/2022 12:14:22 PM | DEBUG |  pre-processing: <function abbreviations at 0x101a07d00>
+04/03/2022 12:14:22 PM | DEBUG |  pre-processing: <function word_sub at 0x101a07d90>
+04/03/2022 12:14:22 PM | DEBUG |  text_parts: ["('12:19', 'Hank Sell', 'Doublewide', 'London')"]
+04/03/2022 12:14:22 PM | DEBUG |  text_parts: 1
+04/03/2022 12:14:22 PM | DEBUG |  data-0: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22%28%2712%3A19%27%2C%20%27Hank%20Sell%27%2C%20%27Doublewide%27%2C%20%27London%27%29%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+04/03/2022 12:14:22 PM | DEBUG |  Starting new HTTPS connection (1): translate.google.co.uk:443
+04/03/2022 12:14:23 PM | DEBUG |  https://translate.google.co.uk:443 "POST /_/TranslateWebserverUi/data/batchexecute HTTP/1.1" 200 None
+04/03/2022 12:14:23 PM | DEBUG |  headers-0: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '212'}
+04/03/2022 12:14:23 PM | DEBUG |  url-0: https://translate.google.co.uk/_/TranslateWebserverUi/data/batchexecute
+04/03/2022 12:14:23 PM | DEBUG |  status-0: 200
+04/03/2022 12:14:23 PM | DEBUG |  part-0 written to <_io.BufferedWriter name='SupportingFiles/Audio/3020.mp3'>
+04/03/2022 12:14:23 PM | DEBUG |  Saved to SupportingFiles/Audio/3020.mp3
+04/03/2022 12:14:27 PM | INFO |  Function: playAudio | Message: DONE: ('12:19', 'Hank Sell', 'Doublewide', 'London') - File Local: SupportingFiles/Audio/3020.mp3 - 
+04/03/2022 12:14:27 PM | INFO |  Function: PlayAudio | Message: Did Alarm: 4/4
+04/03/2022 12:14:27 PM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 12:14:29 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 44.40422034263611
+04/03/2022 12:14:29 PM | ERROR |  Function: playAudio | exc_type: local variable 'host_ip_private' referenced before assignment | Line Number: 442 | FileName: Main.py
+04/03/2022 12:14:30 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:14:30 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 12:14:37 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:14:37 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:14:37 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:14:37 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:14:37 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:14:37 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:14:37 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:37 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:38 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:14:38 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:38 PM | INFO |  Function: alarmTimer | Message: Time Now: 44078 - Alarm Time: 35340 
+ Alarm in: Seconds: -8738 | Minutes: -146 | Hours: -2 for alarm: 9:54
+04/03/2022 12:14:38 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:14:39 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: Time Now: 44079 - Alarm Time: 35340 
+ Alarm in: Seconds: -8739 | Minutes: -146 | Hours: -2 for alarm: 9:54
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:14:39 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: Time Now: 44079 - Alarm Time: 35400 
+ Alarm in: Seconds: -8679 | Minutes: -145 | Hours: -2 for alarm: 9:55
+04/03/2022 12:14:39 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:14:40 PM | INFO |  Function: readFile | Message: Starting Alarm: ('12:19', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:14:40 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:40 PM | INFO |  Function: alarmTimer | Message: Time Now: 44080 - Alarm Time: 44040 
+ Alarm in: Seconds: -40 | Minutes: -1 | Hours: 0 for alarm: 12:19
+04/03/2022 12:14:40 PM | INFO |  Function: alarmTimer | Message: ------ALARM PASSED - Else----12:19 ('12:19', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:14:41 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 4.430439233779907
+04/03/2022 12:14:41 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:14:42 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 12:14:50 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 12:14:50 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 12:14:50 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 12:14:50 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 12:14:50 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 12:14:50 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 12:14:50 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 12:14:50 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 12:14:51 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:14:51 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:51 PM | INFO |  Function: alarmTimer | Message: Time Now: 44091 - Alarm Time: 35340 
+ Alarm in: Seconds: -8751 | Minutes: -146 | Hours: -2 for alarm: 9:54
+04/03/2022 12:14:51 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 12:14:52 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:14:52 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:52 PM | INFO |  Function: alarmTimer | Message: Time Now: 44092 - Alarm Time: 35340 
+ Alarm in: Seconds: -8752 | Minutes: -146 | Hours: -2 for alarm: 9:54
+04/03/2022 12:14:52 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 12:14:53 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:14:53 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:53 PM | INFO |  Function: alarmTimer | Message: Time Now: 44093 - Alarm Time: 35400 
+ Alarm in: Seconds: -8693 | Minutes: -145 | Hours: -2 for alarm: 9:55
+04/03/2022 12:14:53 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 12:14:53 PM | INFO |  Function: readFile | Message: Starting Alarm: ('12:20', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:14:54 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 12:14:54 PM | INFO |  Function: alarmTimer | Message: Time Now: 44094 - Alarm Time: 44100 
+ Alarm in: Seconds: 6 | Minutes: 0 | Hours: 0 for alarm: 12:20
+04/03/2022 12:14:54 PM | INFO |  Function: alarmTimer | Message: Time left for alarm is 12:20 | ('12:20', 'Hank Sell', 'Doublewide', 'London') | 0:00:23
+04/03/2022 12:15:17 PM | INFO |  Function: playAudio | Message: Starting playAudio Function
+04/03/2022 12:15:17 PM | INFO |  Function: playAudio | Message: Downloading Audio: SupportingFiles/Audio/2129.mp3
+04/03/2022 12:15:17 PM | DEBUG |  text: ('12:20', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 12:15:17 PM | DEBUG |  tld: co.uk
+04/03/2022 12:15:17 PM | DEBUG |  lang: en
+04/03/2022 12:15:17 PM | DEBUG |  slow: False
+04/03/2022 12:15:17 PM | DEBUG |  lang_check: True
+04/03/2022 12:15:17 PM | DEBUG |  pre_processor_funcs: [<function tone_marks at 0x105fd3490>, <function end_of_line at 0x105fd3c70>, <function abbreviations at 0x105fd3d00>, <function word_sub at 0x105fd3d90>]
+04/03/2022 12:15:17 PM | DEBUG |  tokenizer_func: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|;|\\[|\\\n|،|\\(|：|\\)|，|\\]|、|。|—|¡|…|‥|¿', re.IGNORECASE) from: [<function tone_marks at 0x105fd3f40>, <function period_comma at 0x105fe4040>, <function colon at 0x105fe40d0>, <function other_punctuation at 0x105fe4160>]>
+04/03/2022 12:15:17 PM | DEBUG |  langs: {'af': 'Afrikaans', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bs': 'Bosnian', 'ca': 'Catalan', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek', 'en': 'English', 'eo': 'Esperanto', 'es': 'Spanish', 'et': 'Estonian', 'fi': 'Finnish', 'fr': 'French', 'gu': 'Gujarati', 'hi': 'Hindi', 'hr': 'Croatian', 'hu': 'Hungarian', 'hy': 'Armenian', 'id': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'ja': 'Japanese', 'jw': 'Javanese', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'la': 'Latin', 'lv': 'Latvian', 'mk': 'Macedonian', 'ml': 'Malayalam', 'mr': 'Marathi', 'my': 'Myanmar (Burmese)', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'pl': 'Polish', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'si': 'Sinhala', 'sk': 'Slovak', 'sq': 'Albanian', 'sr': 'Serbian', 'su': 'Sundanese', 'sv': 'Swedish', 'sw': 'Swahili', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Filipino', 'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'zh-CN': 'Chinese', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'}
+04/03/2022 12:15:17 PM | DEBUG |  pre-processing: <function tone_marks at 0x105fd3490>
+04/03/2022 12:15:17 PM | DEBUG |  pre-processing: <function end_of_line at 0x105fd3c70>
+04/03/2022 12:15:17 PM | DEBUG |  pre-processing: <function abbreviations at 0x105fd3d00>
+04/03/2022 12:15:17 PM | DEBUG |  pre-processing: <function word_sub at 0x105fd3d90>
+04/03/2022 12:15:17 PM | DEBUG |  text_parts: ["('12:20', 'Hank Sell', 'Doublewide', 'London')"]
+04/03/2022 12:15:17 PM | DEBUG |  text_parts: 1
+04/03/2022 12:15:17 PM | DEBUG |  data-0: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22%28%2712%3A20%27%2C%20%27Hank%20Sell%27%2C%20%27Doublewide%27%2C%20%27London%27%29%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+04/03/2022 12:15:17 PM | DEBUG |  Starting new HTTPS connection (1): translate.google.co.uk:443
+04/03/2022 12:15:17 PM | DEBUG |  https://translate.google.co.uk:443 "POST /_/TranslateWebserverUi/data/batchexecute HTTP/1.1" 200 None
+04/03/2022 12:15:17 PM | DEBUG |  headers-0: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '212'}
+04/03/2022 12:15:17 PM | DEBUG |  url-0: https://translate.google.co.uk/_/TranslateWebserverUi/data/batchexecute
+04/03/2022 12:15:17 PM | DEBUG |  status-0: 200
+04/03/2022 12:15:17 PM | DEBUG |  part-0 written to <_io.BufferedWriter name='SupportingFiles/Audio/2129.mp3'>
+04/03/2022 12:15:17 PM | DEBUG |  Saved to SupportingFiles/Audio/2129.mp3
+04/03/2022 12:15:21 PM | INFO |  Function: playAudio | Message: DONE: ('12:20', 'Hank Sell', 'Doublewide', 'London') - File Local: SupportingFiles/Audio/2129.mp3 - 
+04/03/2022 12:15:21 PM | INFO |  Function: PlayAudio | Message: Did Alarm: 4/4
+04/03/2022 12:15:21 PM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 12:15:23 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 33.14481782913208
+04/03/2022 12:15:23 PM | ERROR |  Function: playAudio | exc_type: local variable 'host_ip_private' referenced before assignment | Line Number: 442 | FileName: Main.py
+04/03/2022 12:15:24 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 12:15:24 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41
+04/03/2022 01:04:04 PM | INFO |  
+
+                 %%%%%%%%%%%%%%%%%% Main Program start 2.2%%%%%%%%%%%%%%%%%%
+
+04/03/2022 01:04:04 PM | INFO |  Function: readConfigINI | Message: Starting to reading of teh COnfig File - Line 98
+04/03/2022 01:04:04 PM | INFO |  Function: checkforUpdate | Message: Starting Updater
+04/03/2022 01:04:04 PM | INFO |  Function: checkforUpdate | Message: Updater Link: https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Updater.py
+04/03/2022 01:04:04 PM | DEBUG |  Starting new HTTPS connection (1): raw.githubusercontent.com:443
+04/03/2022 01:04:04 PM | DEBUG |  https://raw.githubusercontent.com:443 "GET /maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt HTTP/1.1" 200 104
+04/03/2022 01:04:04 PM | INFO |  Function: checkforUpdate | Message: new version: 2.2 | Udpate Link: https://github.com/maxacode/Adept-Vocal-Alarm/blob/main/Updates/Main.exe?raw=true | Outdated by: 0.0 
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Starting Function - reading File
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Found the Alarms File: SAMPLE-04-03.csv
+
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Opening CSV File
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Changing time based if it has : or no
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Compiling full msg
+04/03/2022 01:04:04 PM | INFO |  Function: readFile | Message: Done with full msg
+04/03/2022 01:04:05 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 01:04:05 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 01:04:05 PM | INFO |  Function: alarmTimer | Message: Time Now: 47045 - Alarm Time: 35340 
+ Alarm in: Seconds: -11705 | Minutes: -195 | Hours: -3 for alarm: 9:54
+04/03/2022 01:04:05 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Stop Run', 'Doublewide', 'China')
+04/03/2022 01:04:06 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 01:04:06 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 01:04:06 PM | INFO |  Function: alarmTimer | Message: Time Now: 47046 - Alarm Time: 35340 
+ Alarm in: Seconds: -11706 | Minutes: -195 | Hours: -3 for alarm: 9:54
+04/03/2022 01:04:06 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:54 ('9:54', 'Double Bottom', 'Doublewide', 'London')
+04/03/2022 01:04:07 PM | INFO |  Function: readFile | Message: Starting Alarm: ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: Time Now: 47047 - Alarm Time: 35400 
+ Alarm in: Seconds: -11647 | Minutes: -194 | Hours: -3 for alarm: 9:55
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 9:55 ('9:55', 'Hank Buy', '-', '-')
+04/03/2022 01:04:07 PM | INFO |  Function: readFile | Message: Starting Alarm: ('12:20', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: Starting AlarmTimer Function
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: Time Now: 47047 - Alarm Time: 44100 
+ Alarm in: Seconds: -2947 | Minutes: -49 | Hours: -1 for alarm: 12:20
+04/03/2022 01:04:07 PM | INFO |  Function: alarmTimer | Message: -----ALARM PASSED----- 12:20 ('12:20', 'Hank Sell', 'Doublewide', 'London')
+04/03/2022 01:04:07 PM | INFO |  Function: PlayAudio | Message: Did all alarms! 4/4
+04/03/2022 01:04:09 PM | INFO |  Function: Sentry | Message: Execution Time In Seconds: 5.34046196937561
+04/03/2022 01:04:10 PM | ERROR |  Function: alarmTimer | exc_type: local variable 'host_ip_private' referenced before assignment | Line Number: 375 | FileName: Main.py
+04/03/2022 01:04:10 PM | DEBUG |  Starting new HTTPS connection (1): o1176942.ingest.sentry.io:443
+04/03/2022 01:04:10 PM | DEBUG |  https://o1176942.ingest.sentry.io:443 "POST /api/6275427/store/ HTTP/1.1" 200 41

@@ -2,9 +2,7 @@
 #Smart alarm that will go off X amount of time before and voice the Message
 #!/usr/bin/python
 
-from cgitb import handler
-from ctypes import WinError
-from re import fullmatch
+
 
 from pip import main
 
@@ -88,6 +86,9 @@ try:
         OSystem = "mac"
     else:
         OSystem = "win"
+        from cgitb import handler
+        from ctypes import WinError
+        from re import fullmatch
     
     #Where to save audio files
     if OSystem == "mac":
@@ -124,7 +125,7 @@ try:
         updateFile = config.get('Ignore_Program_Config', 'update file')
         url = config.get('Ignore_Program_Config', 'update file text')
         
-        basicLog("checkforUpdate", f"Updater Link: {updaterLink} | ")
+        basicLog("checkforUpdate",f"Updater Link: {updaterLink}")
 
         #Downloaind Update Info text file
         r = requests.get(url, allow_redirects=True)
@@ -205,7 +206,7 @@ try:
             secondColumn = 'Second_Column_Voice'
             thirdColum = 'Third_Column_Location'
             fullMsg = ''
-            basicLog("readFile", "Opening CSV File")
+            #basicLog("readFile", "Opening CSV File")
             file = open(fileName)
             csvreader = csv.reader(file)
 
@@ -221,7 +222,7 @@ try:
                 #Checking format of Time:
                     alarm0 = alarm[0]
                  #   print(alarm0)
-                    basicLog("readFile", "Changing time based if it has : or no")
+                    #basicLog("readFile", "Changing time based if it has : or no")
 
                     if ":" not in alarm0:
                       #  print(203)
@@ -233,8 +234,7 @@ try:
                         alarm0Done = alarm0
                     #print(alarm0Done)
                 #Full Message of this Alarm
-                    basicLog("readFile", "Compiling full msg")
-
+                    #basicLog("readFile", "Compiling full msg")
                     try:
                       #  print("1st") # print(config.get(firstColumn, (alarm[1].lower())))
 
@@ -472,12 +472,20 @@ try:
             try:
                 host_name = socket.gethostname()
                 host_ip_private = socket.gethostbyname(host_name)
+            except Exception as e:
+                host_name = 'Host-Name: Null'
+                host_ip_private = 'Private-IP: Null'
+
+            try:
                 host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')  
             except Exception as e:
+                host_ip_public = "Public_IP: Null"
+                basicLog('Sentry Send', f"Trying to get Public IP: {e}")
                 pass
+
+
             host_username =  os.getlogin()
             host_platform = platform.platform()
-
             sysInfo = f"OS: {platform.platform()} | Version: {platform.version()} | Private IP: {host_ip_private} | Public IP: {host_ip_public} | Host_Username {host_username} | App Version: {app_version} "
             basicLog("Main",f"Current Version: {app_version}")
             #System info Log
@@ -503,7 +511,7 @@ try:
          #   print("sys.exit()")
             sys.exit()
         except:
-            print("You May now Close the Program")
+            print("\n\n ##### You May now Close the Program ##### \n\n")
             exit()
 
          
@@ -626,7 +634,7 @@ try:
 
         format= "%(asctime)s | %(levelname)s |  %(message)s"
         
-        logging.basicConfig(format = format, filename=f'SupportingFiles\{logFile}', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
+        logging.basicConfig(format = format, filename=f'SupportingFiles{slash}{logFile}', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info(f"\n\n                 %%%%%%%%%%%%%%%%%% Main Program start {app_version}%%%%%%%%%%%%%%%%%%\n")
 
         readConfigINI()
