@@ -112,13 +112,14 @@ try:
         #min before time before to ring alarm
         global minBeforeAlarm
         minBeforeAlarm = config.get('DEFAULTS', 'minutes before time to ring alarm')
-        
-        checkForUpdate()
+        return minBeforeAlarm
+        #checkForUpdate()
 ###########################################################################
 # Update Section
 
     def checkForUpdate():
         #getting Version and URL update
+        minBeforeAlarm = readConfigINI()
         basicLog("checkforUpdate", "Starting Updater")
        
         updaterLink = config.get('Ignore_Program_Config', 'updater link')
@@ -177,8 +178,7 @@ try:
 
     ###########################################################################
     # ReadFile Section
-    def readFile():
-        alarmMsgDict = []
+    def getFileName():
         fileName = None
         basicLog("readFile","Starting Function - reading File")
         #Gettinf file name in directory:
@@ -187,24 +187,48 @@ try:
         for (dirpath, dirnames, filenames) in walk("."):
             for x in filenames:
               #  print(x)
-                if dateToday[1:2] in x and dateToday[3:5] in x:
+            #    print(dateToday[1:2], dateToday[4:5])
+                if dateToday[1:2] in x and dateToday[4:5] in x:
+                    
                     fileName = x
                     print(f"Found the Alarms File: {x}\n")
                     basicLog("readFile", f"Found the Alarms File: {x}\n")
+                    return fileName,dateToday
 
-                    break
-            break
+    def addColon(alarm0):
+        try:
+            if ":" not in alarm0:
+                if len(alarm0) == 3:
+                    alarm0Done = alarm0[0] + ":" + alarm0[1:]
+                    return alarm0Done
+                elif len(alarm0) == 4:
+                    alarm0Done = alarm0[:2] + ":" + alarm0[2:]   
+                    return alarm0Done
+            else:
+                return alarm0
+
+        except Exception as e:
+            print("208 Error")
+            print(e)
+
+    def readFile():
+        alarmMsgDict = []
+        fileName, dateToday = getFileName()
        # print(fileName)
         if fileName != None:
         #Reading file to extract alarms and text.
-           
             #Reading Vars form Config.ini
             config = ConfigParser()
   
             config.read("config.ini")
-            firstColumn = 'First_Column_Voice'
-            secondColumn = 'Second_Column_Voice'
-            thirdColum = 'Third_Column_Location'
+            configSections = config.sections()
+            firstColumn = configSections[1]
+            secondColumn = configSections[2]
+            thirdColum = configSections[3]
+
+            #firstColumn = 'First_Column_Voice'
+            #secondColumn = 'Second_Column_Voice'
+            #thirdColum = 'Third_Column_Location'
             fullMsg = ''
             #basicLog("readFile", "Opening CSV File")
             file = open(fileName)
@@ -213,34 +237,37 @@ try:
             #Looping through each allarm and adding to full msg
             for alarm in csvreader:
                 try:
-                    
                     if "Time:" in alarm:
                         continue
                     elif alarm[0] == '':
-                        break
-                   
+                        continue
+                    elif alarm[0].count(":") > 0:
+                        #print(f"{alarm[0]} Has Colon")
+                        alarm[0] = alarm[0].replace(":","")
+                        #print(alarm[0])
+                    if not(alarm[0].isdigit()):
+                        print(f"\n{alarm[0]} is not a Number! Skipping it. \n")
+                        continue 
                 #Checking format of Time:
                     alarm0 = alarm[0]
                  #   print(alarm0)
                     #basicLog("readFile", "Changing time based if it has : or no")
 
-                    if ":" not in alarm0:
-                      #  print(203)
-                        if len(alarm0) == 3:
-                            alarm0Done = alarm0[0] + ":" + alarm0[1:]
-                        elif len(alarm0) == 4:
-                            alarm0Done = alarm0[:2] + ":" + alarm0[2:]
-                    else:
-                        alarm0Done = alarm0
+                   # if ":" not in alarm0:
+                    basicLog("ReadFile", f"Sending Alarm to colon function: {alarm0}")
+                    alarm0Done = addColon(alarm0)
+                  # else:
+                       # alarm0Done = alarm0
                     #print(alarm0Done)
                 #Full Message of this Alarm
                     #basicLog("readFile", "Compiling full msg")
+                  
                     try:
                       #  print("1st") # print(config.get(firstColumn, (alarm[1].lower())))
 
                         firstMsg = config.get(firstColumn, (alarm[1].lower()))
                     except:
-                        firstMsg == "-"
+                        firstMsg = "-"
                     try:
                        # print("2nd")
                         secondMsg =  config.get(secondColumn, alarm[2].lower())
@@ -253,28 +280,29 @@ try:
                         thirdMsg = "-"
                     
                    # print("Full Msg")
+                  
                     fullMsg = alarm0Done, firstMsg, secondMsg, thirdMsg
                   #  print(fullMsg)
                     basicLog("readFile", "Done with full msg")
-
                     alarmMsgDict.append(fullMsg)
- 
                 except Exception as e:
-             
-                    e = str(e)
-                    if firstColumn in e:
-                        fullMsg = alarm0Done, config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
-                        alarmMsgDict.append(fullMsg)
-                    elif secondColumn in e:
-                        fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()), config.get( thirdColum, alarm[3].lower())
-                        alarmMsgDict.append(fullMsg)
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                    logger("readFile", e, fname, exc_tb.tb_lineno) 
+                    # e = str(e)
+                    # if firstColumn in e:
+                    #     fullMsg = alarm0Done, config.get(secondColumn, alarm[2].lower()), config.get( thirdColum, alarm[3].lower())
+                    #     alarmMsgDict.append(fullMsg)
+                    # elif secondColumn in e:
+                    #     fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()), config.get( thirdColum, alarm[3].lower())
+                    #     alarmMsgDict.append(fullMsg)
 
-                    elif thirdColum in e:
-                        fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower())
-                        alarmMsgDict.append(fullMsg)
+                    # elif thirdColum in e:
+                    #     fullMsg = alarm0Done, config.get( firstColumn, alarm[1].lower()),  config.get(secondColumn, alarm[2].lower())
+                    #     alarmMsgDict.append(fullMsg)
                     
-                    else:
-                        continue
+                    # else:
+                    #     print(e)
             file.close()
         else:
             print(f"\n !!!!! CAUTION !!!!!!!!!!!!!! \n Can Not Find a file Named: {dateToday} rename your CSV file to this.")
@@ -310,7 +338,7 @@ try:
                 #     print("Elif 245")
                 #     time.sleep(10)
                 numAlarm = specificAlarm
-                _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], numAlarm ) )
+                _thread.start_new_thread( alarmTimer, (str(alarmMsgDict[specificAlarm][0]), alarmMsgDict[specificAlarm], numAlarm, numOfAlarms ) )
                 print(f"Alarm: {specificAlarm + 1} / {numOfAlarms} = {alarmMsgDict[specificAlarm]}")
                 specificAlarm+= 1
                 numAlarm+=1
@@ -325,8 +353,8 @@ try:
     ###########################################################################
     # Timer Section!!!!!!!!
 
-    def alarmTimer( alarm, msg, numAlarm):
-        basicLog("alarmTimer","Starting AlarmTimer Function")
+    def alarmTimer( alarm, msg, numAlarm, numOfAlarms):
+        basicLog("alarmTimer",f"Starting AlarmTimer Function Vars: alarm: {alarm} | msg: {msg} | numAlarm: {numAlarm}")
         try:
             global time_diff
             #Adding 12 hours to alaram if its under 12 - time reasonning - need to make better
@@ -366,6 +394,7 @@ try:
                 print(f"-----ALARM PASSED-----\n")
                 basicLog(f"alarmTimer",f"-----ALARM PASSED----- {alarm} {msg}")
                 #numAlarm +=1
+                
                 if (numAlarm+1) == (numOfAlarms):
                     basicLog("PlayAudio", f"Did all alarms! {numAlarm+1}/{numOfAlarms}")
                     print("Done with All Alarms - Closing in a few seconds..")
@@ -373,7 +402,8 @@ try:
                     time.sleep(2)
                     sentrySend()
                 exit()
-                
+                #sys.stderr.write("CHANGE BACK TO EXIT 384")
+                #print("CHANGE BACK TO exit 384")
             else:
                 print(f"-----ALARM PASSED-2----\n")
                 basicLog(f"alarmTimer",f"------ALARM PASSED - Else----{alarm} {msg}")
@@ -388,7 +418,7 @@ try:
             if time_diff > 0:
                 time.sleep(time_diff)
             else:
-                time.sleep(5)
+                time.sleep(.5)
             playAudio(currentAlarm, msg, numAlarm)
             
         except Exception as e:
@@ -519,6 +549,7 @@ try:
     # Def config File
     def configIni():
         #Default Values:
+        print("Creating Default Config File!")
         ipv4API1 =  'https://icanhazip.com/'
         minBeforeAlarm = 5
         
@@ -526,19 +557,25 @@ try:
             host_name = socket.gethostname()
             host_ip_private = socket.gethostbyname(host_name)     
         except Exception as e:
+            host_name = "Null Host"
+            host_ip_private = "Null Private IP"
             print(e)
         host_username =  os.getlogin()
         host_platform = platform.platform()
 
         #Whre to save Config file 
         logDir = (r".")
-        host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')
+        try:
+            host_ip_public = urllib.request.urlopen(ipv4API1).read().decode('utf8')
+        except:
+            host_ip_public = 'Null Public IP'
 
         #Init of config parser
         config = ConfigParser()
 
         #Function for creating INI
         def createINI():
+ 
             firstRunTime = datetime.datetime.now()
             #These are the default variables. they can be changed if user wants.
             config['DEFAULTS'] = {
@@ -590,9 +627,10 @@ try:
                 'Update File Text'          :   "https://raw.githubusercontent.com/maxacode/Adept-Vocal-Alarm/main/SupportingFiles/Update.txt",
             }
 
-            with open(logDir + '\config.ini','w') as configfile:
+            with open(logDir + f'{slash}config.ini','w') as configfile:
                 config.write(configfile)
                 pass
+            print("Done Creating Config File")
         createINI()
  
     ###########################################################################
@@ -636,8 +674,8 @@ try:
         
         logging.basicConfig(format = format, filename=f'SupportingFiles{slash}{logFile}', encoding='utf-8', level=logging.DEBUG, datefmt='%m/%d/%Y %I:%M:%S %p')
         logging.info(f"\n\n                 %%%%%%%%%%%%%%%%%% Main Program start {app_version}%%%%%%%%%%%%%%%%%%\n")
-
-        readConfigINI()
+        checkForUpdate()
+        #readConfigINI()
         #Waiting so threads can run and not stop. 
         while 1:
             pass
