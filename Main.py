@@ -60,7 +60,7 @@ try:
     sentry_sdk.init(
     "https://6a1650e68ecc49c28f29608441772004@o1176942.ingest.sentry.io/6275427",
     traces_sample_rate=1.0,
-    release = "Adept-Alarm@2.2",
+    release = "Adept-Alarm@2.3",
     )
  
     global sentryRun
@@ -73,7 +73,7 @@ try:
 # Static Variables Section
    
      #Current App Version 
-    app_version = 2.2
+    app_version = 2.3
 
     #Min before time to ring alarm
      
