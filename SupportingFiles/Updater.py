@@ -42,7 +42,7 @@ time.sleep(2)
 try:
     path = os.getcwd()
     fullPath = path + "\\" + mainName
-    print("Opening File -  Open MAIN if nothing happens\n\n")
+    print("\n Update Complete! \n  ### Open 'Main.exe' if nothing happens\n\n")
     basicLog("updater.py",f"running new Main.exe {fullPath}")
     os.system(fullPath)
 
