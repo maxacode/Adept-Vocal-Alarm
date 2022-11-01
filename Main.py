@@ -29,10 +29,12 @@ try:
     import sys
     #To delete folder 
     import shutil
-
+    
+    #grepper import config parser
     #Config Parser and CSV Reader
     from configparser import ConfigParser
     import csv
+    #end grepper
 
     #Toget all files and find the correct CSV
     from os import walk
